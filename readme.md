@@ -4,7 +4,7 @@ Some tools used in ROS.
 
 ## Requirements 
 - Based on C++17
-- ROS (and Eigen, PCL, OpenMP): the all examples in this readme are tested under Ubuntu 20.04 and ROS Noetic. s
+- ROS (and Eigen, PCL, OpenMP): the all examples in this readme are tested under Ubuntu 20.04 and ROS Noetic.
 
 ## Example
 - [bin2global_map](myros_tools/src/bin2global_map.cpp): generates a global map form kitti datas.
