@@ -1,0 +1,18 @@
+<launch>
+    <node name="earasor_pcd_pub" pkg="myros_tools" type="pcd_pub" output="screen">
+        <rosparam param="/earasor_pcd_pub/path_to_pcd">"/media/yzh/T7/bag_map/erasor/map_save/05_result.pcd"</rosparam>
+        <remap from="pcd_pub" to="earasor_pcd" />
+    </node>
+
+    <node name="original_pcd_pub" pkg="myros_tools" type="pcd_pub" output="screen">
+        <rosparam param="/original_pcd_pub/path_to_pcd">"/media/yzh/T7/bag_map/erasor/map_save/05_2350_to_2670_w_interval2_voxel_0.200000.pcd"</rosparam>
+        <remap from="pcd_pub" to="original_pcd" />
+    </node>
+    
+    <node name="hash_map_pcd_pub" pkg="myros_tools" type="pcd_pub" output="screen">
+        <rosparam param="/hash_map_pcd_pub/path_to_pcd">"/media/yzh/T7/bag_map/erasor/map_save/hash_map.pcd"</rosparam>
+        <remap from="pcd_pub" to="hash_map_pcd" />
+    </node>
+
+    <node name="rviz" pkg="rviz" type="rviz" args="-d $(find myros_tools)/rviz/pcd_pub.rviz"/>
+</launch>
