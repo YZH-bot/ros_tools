@@ -7,7 +7,7 @@
 - ROS (and Eigen, PCL, OpenMP): the all examples in this readme are tested under Ubuntu 20.04 and ROS Noetic.
 
 ## :star: Example
-- [bin2global_map](myros_tools/src/bin2global_map.cpp): generates a global map form kitti datas.
+- [bin2global_map](myros_tools/src/bin2global_map.cpp): Generates a global map form kitti datas.
 ![](imgs/05.png)
 
 - [pcd_pub](myros_tools/src/pcd_pub.cpp): Publish the global map pcd file to rviz.
