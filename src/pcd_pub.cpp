@@ -31,7 +31,7 @@ int main(int argc, char **argv)
     pcl::toROSMsg(*cloud, cloud_msg);
 
     // Set the frame ID and timestamp
-    cloud_msg.header.frame_id = "map";
+    cloud_msg.header.frame_id = "world";
     cloud_msg.header.stamp = ros::Time::now();
 
     // Create a publisher for the PointCloud2 message

@@ -1,7 +1,14 @@
 
 #include "kitti_function.hpp"
-
+#include <tf/transform_broadcaster.h>
+#include <Eigen/Dense>
+#include <tf_conversions/tf_eigen.h>
+#include <tf/transform_datatypes.h>
 namespace fs = std::filesystem;
+
+// pose & scan
+string sequence_scan_dir_;
+string sequence_pose_path_;
 
 std::vector<std::string> sequence_scan_names_;
 std::vector<std::string> sequence_scan_paths_;
@@ -107,8 +114,14 @@ void readValidScans(std::vector<pcl::PointCloud<PointType>::Ptr> &scans_, float 
 
 int main(int argc, char *argv[])
 {
+    ros::init(argc, argv, "globalmap");
+    ros::NodeHandle nh;
 
-    string sequence_scan_dir_ = "/media/yzh/T7/Study/SLAM/Dataset/data_odometry_velodyne/dataset/sequences/05/velodyne/";
+    nh.param<string>("sequence_scan_dir_", sequence_scan_dir_, "/media/yzh/T7/Study/SLAM/Dataset/data_odometry_velodyne/dataset/sequences/05/velodyne/");
+    nh.param<string>("sequence_pose_path_", sequence_pose_path_, "/media/yzh/T7/Study/SLAM/Dataset/data_odometry_labels/dataset/sequences/05/poses.txt");
+    cout << sequence_scan_dir_ << std::endl;
+    cout << sequence_pose_path_ << std::endl;
+
     for (auto file : fs::directory_iterator(sequence_scan_dir_))
     {
         sequence_scan_names_.emplace_back(file.path().filename());
@@ -120,8 +133,7 @@ int main(int argc, char *argv[])
     {
         cout << sequence_scan_names_.at(i) << " ";
     }
-    // pose
-    string sequence_pose_path_ = "/media/yzh/T7/Study/SLAM/Dataset/data_odometry_labels/dataset/sequences/05/poses.txt";
+
     std::ifstream pose_file_handle(sequence_pose_path_);
 
     // TODO: rotate to world(for kitti)
@@ -166,10 +178,9 @@ int main(int argc, char *argv[])
     readValidScans(scans_);
     auto scans_size = scans_.size();
 
-    ros::init(argc, argv, "globalmap");
-    ros::NodeHandle nh;
     ros::Publisher scans_pub = nh.advertise<sensor_msgs::PointCloud2>("scans_pub", 1);
-    ros::Rate rate(2);
+    tf::TransformBroadcaster tf_broadcaster;
+    ros::Rate rate(5);
     int scan_idx = 0;
     while (ros::ok())
     {
@@ -179,6 +190,24 @@ int main(int argc, char *argv[])
             scan_idx++;
             auto ii_scan = scans_.at(scan_idx);      // pcl::PointCloud<PointType>::Ptr
             auto ii_pose = scan_poses_.at(scan_idx); // Eigen::Matrix4d
+
+            // ?calculate the rings for points
+            // 计算每个点的ring值
+            float fov_down = -24.9 / 180.0 * M_PI;
+            float fov = (abs(-24.9) + abs(2.0)) / 180.0 * M_PI;
+            int max = 0;
+            int min = 10;
+            pcl::PointCloud<PointType>::Ptr scan_ring(new pcl::PointCloud<PointType>());
+            for (auto &pt : *ii_scan)
+            {
+                float distance = std::hypot(pt.x, pt.y);
+                float vertical_angle = std::atan2(pt.z, distance);
+                int ring = (vertical_angle + abs(fov_down)) / fov * 64;
+                ring = ring > 63 ? 63 : ring;
+                ring = ring < 0 ? 0 : ring;
+                pt.intensity = ring;
+            }
+
             // local to global (local2global)
             pcl::PointCloud<PointType>::Ptr scan_global_coord(new pcl::PointCloud<PointType>());
             pcl::transformPointCloud(*ii_scan, *scan_global_coord, kSE3MatExtrinsicLiDARtoPoseBase);
@@ -188,6 +217,18 @@ int main(int argc, char *argv[])
             lidar_msg.header.stamp = ros::Time::now();
             lidar_msg.header.frame_id = "world";
             scans_pub.publish(lidar_msg);
+
+            // ?TF publishing
+            auto ego_car_link = ii_pose * kSE3MatExtrinsicLiDARtoPoseBase;
+            Eigen::Quaterniond eigen_quat(ego_car_link.block<3, 3>(0, 0).cast<double>());
+            Eigen::Vector3d eigen_trans(ego_car_link.block<3, 1>(0, 3).cast<double>());
+            tf::Quaternion tf_quat;
+            tf::Vector3 tf_trans;
+            tf::quaternionEigenToTF(eigen_quat, tf_quat);
+            tf::vectorEigenToTF(eigen_trans, tf_trans);
+            tf::StampedTransform tf_map2ego(tf::Transform(tf_quat, tf_trans), ros::Time::now(), "world", "ego_car");
+            tf_broadcaster.sendTransform(tf_map2ego);
+
             std::cout << "Publishing" << std::endl;
         }
         else

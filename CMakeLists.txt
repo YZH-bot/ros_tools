@@ -9,6 +9,8 @@ find_package(catkin REQUIRED COMPONENTS
   rospy
   sensor_msgs
   pcl_conversions
+  tf
+  tf_conversions
 )
 
 find_package(PCL 1.7 REQUIRED)
