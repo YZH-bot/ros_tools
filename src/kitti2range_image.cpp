@@ -1,4 +1,3 @@
-
 #include "kitti_function.hpp"
 
 std::vector<double> kVecExtrinsicLiDARtoPoseBase =
@@ -10,13 +9,30 @@ Eigen::Matrix4d kSE3MatExtrinsicLiDARtoPoseBase = Eigen::Map<const Eigen::Matrix
 
 int main(int argc, char *argv[])
 {
-    ros::init(argc, argv, "kitti_node");
+    ros::init(argc, argv, "kitti2range_image");
     ros::NodeHandle nh;
+    image_transport::ImageTransport ROSimg_transporter_(nh);
+    image_transport::Publisher scan_rimg_msg_publisher_ = ROSimg_transporter_.advertise("/scan_rimg_single", 10);
 
-    // ? parameters set
+    // ? image parameters
+    // fov
+    float kVFOV;
+    float kHFOV;
+    float rimg_color_min_;
+    float rimg_color_max_;
+    float _res_alpha = 1;
+    sensor_msgs::ImagePtr scan_rimg_msg_;
+    nh.param<float>("removert/sequence_vfov", kVFOV, 50.0);
+    nh.param<float>("removert/sequence_hfov", kHFOV, 360.0);
+    nh.param<float>("removert/rimg_color_min", rimg_color_min_, 0.0);
+    nh.param<float>("removert/rimg_color_max", rimg_color_max_, 10.0);
+    std::pair<float, float> kFOV = std::pair<float, float>(kVFOV, kHFOV);
+    std::pair<int, int> rimg_shape = resetRimgSize(kFOV, _res_alpha);
+    std::pair<float, float> kRangeColorAxis = std::pair<float, float>{rimg_color_min_, rimg_color_max_}; // meter
+
+    // ? scan read parameters
     int start_idx_ = 2350;
     int end_idx_ = 2670;
-    // pose & scan
     string sequence_scan_dir_;
     string sequence_pose_path_;
     std::vector<pcl::PointCloud<PointType>::Ptr> scans_;
@@ -29,11 +45,9 @@ int main(int argc, char *argv[])
     // read scans and poses
     read_scans_and_poses(start_idx_, end_idx_, sequence_scan_dir_, sequence_pose_path_, scans_, scan_poses_);
 
-    auto scans_size = scans_.size();
-    ros::Publisher scans_pub = nh.advertise<sensor_msgs::PointCloud2>("scans_pub", 1);
-    tf::TransformBroadcaster tf_broadcaster;
     ros::Rate rate(5);
     int scan_idx = 0;
+    auto scans_size = scans_.size();
     while (ros::ok())
     {
         rate.sleep();
@@ -43,25 +57,11 @@ int main(int argc, char *argv[])
             auto ii_scan = scans_.at(scan_idx);
             auto ii_pose = scan_poses_.at(scan_idx);
 
-            // ?calculate the rings for points
-            add_rings_information(ii_scan);
-
-            // local to global (local2global)
-            pcl::PointCloud<PointType>::Ptr scan_global_coord(new pcl::PointCloud<PointType>());
-            pcl::transformPointCloud(*ii_scan, *scan_global_coord, kSE3MatExtrinsicLiDARtoPoseBase);
-            pcl::transformPointCloud(*scan_global_coord, *scan_global_coord, ii_pose);
-            sensor_msgs::PointCloud2 lidar_msg;
-            pcl::toROSMsg(*scan_global_coord, lidar_msg);
-            lidar_msg.header.stamp = ros::Time::now();
-            lidar_msg.header.frame_id = "world";
-            scans_pub.publish(lidar_msg);
-
-            // ?TF publishing
-            auto ego_car_link = ii_pose * kSE3MatExtrinsicLiDARtoPoseBase;
-            tf::StampedTransform tf_map2ego = Matrix4dpose2TF(ego_car_link);
-            tf_broadcaster.sendTransform(tf_map2ego);
-
-            std::cout << "Publishing" << std::endl;
+            cv::Mat scan_rimg = scan2RangeImg(ii_scan, kFOV, rimg_shape); // openMP inside
+            cout << "rimg shape" << rimg_shape.first << " " << rimg_shape.second << endl;
+            // visualization
+            pubRangeImg(scan_rimg, scan_rimg_msg_, scan_rimg_msg_publisher_, kRangeColorAxis);
+            cout << "visulization range images!" << endl;
         }
         else
         {
