@@ -20,8 +20,7 @@
 ```
 roslaunch myros_tools play_kitti.launch 
 ```
-
-![](imgs/scan.png)
+- ![](imgs/scan.png)
 
 - With ring 0-64:
 ![img](imgs/ring.png)
