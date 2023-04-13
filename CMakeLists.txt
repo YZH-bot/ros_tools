@@ -72,3 +72,7 @@ target_link_libraries(kitti2range_image
     ${OpenMP_CXX_FLAGS}
     stdc++fs
 )
+
+# keyboard listening
+add_executable(kblistening kblistening.cpp)
+target_link_libraries(kblistening -lncurses)

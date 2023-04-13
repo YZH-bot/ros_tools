@@ -9,8 +9,7 @@
 
 ## ⭐️ Node Example
 
-### [bin2global_map](myros_tools/src/bin2global_map.cpp): Generates a global map form kitti datas. **(Comment out ``dynamic_mapping::DiscreteSpace space``, which it is my own data struture for dynamic mapping in the code if you want to use the node, do the same operation in the CmakeLists.txt.)**
-
+[bin2global_map](myros_tools/src/bin2global_map.cpp): Generates a global map form kitti datas. **(Comment out ``dynamic_mapping::DiscreteSpace space``, which it is my own data struture for dynamic mapping in the code if you want to use the node, do the same operation in the CmakeLists.txt.)**
 ![img](imgs/05.png)
 
 - [pcd_pub](myros_tools/src/pcd_pub.cpp): Publish the global map pcd file to rviz.
@@ -29,6 +28,12 @@ roslaunch myros_tools play_kitti.launch
 - [kitti2range_image](myros_tools/src/kitti2range_image.cpp): Convert the kitti velodyne to range images. **貌似kitti数据集的lidar frame 180度左右存在一个严重的噪点数据，从图像中心可以看出来，有一个蓝色近距离点**
   ![img](imgs/range_images.gif)
 - kblistening：Check whether the keyboard is pressed so that the publication of bin can pause like rosbag.
+  - requirement:
+
+    ```C++
+    sudo apt-get install libncurses5-dev libncursesw5-dev
+    target_link_libraries(your_target_name -lncurses)
+    ```
 
 ## 💬 *Notes*
 
