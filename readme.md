@@ -9,7 +9,8 @@
 
 ## ⭐️ Node Example
 
-[bin2global_map](myros_tools/src/bin2global_map.cpp): Generates a global map form kitti datas. **(Comment out ``dynamic_mapping::DiscreteSpace space``, which it is my own data struture for dynamic mapping in the code if you want to use the node, do the same operation in the CmakeLists.txt.)**
+[- bin2global_map](myros_tools/src/bin2global_map.cpp): Generates a global map form kitti datas. **(Comment out ``dynamic_mapping::DiscreteSpace space``, which it is my own data struture for dynamic mapping in the code if you want to use the node, do the same operation in the CmakeLists.txt.)**
+
 ![img](imgs/05.png)
 
 - [pcd_pub](myros_tools/src/pcd_pub.cpp): Publish the global map pcd file to rviz.
