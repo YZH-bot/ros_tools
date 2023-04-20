@@ -4,7 +4,10 @@ Panels:
     Name: Displays
     Property Tree Widget:
       Expanded:
-        - /Global Options1
+        - /earasor_pcd1
+        - /earasor_pcd1/Autocompute Value Bounds1
+        - /original_pcd1
+        - /original_pcd1/Autocompute Value Bounds1
       Splitter Ratio: 0.5
     Tree Height: 790
   - Class: rviz/Selection
@@ -24,7 +27,7 @@ Panels:
   - Class: rviz/Time
     Name: Time
     SyncMode: 0
-    SyncSource: Image
+    SyncSource: earasor_pcd
 Preferences:
   PromptSaveOnExit: true
 Toolbars:
@@ -36,7 +39,7 @@ Visualization Manager:
       Cell Size: 1
       Class: rviz/Grid
       Color: 160; 160; 164
-      Enabled: true
+      Enabled: false
       Line Style:
         Line Width: 0.029999999329447746
         Value: Lines
@@ -49,18 +52,18 @@ Visualization Manager:
       Plane: XY
       Plane Cell Count: 10
       Reference Frame: <Fixed Frame>
-      Value: true
+      Value: false
     - Alpha: 1
       Autocompute Intensity Bounds: true
       Autocompute Value Bounds:
-        Max Value: 12.233526229858398
-        Min Value: -17.5152587890625
-        Value: true
+        Max Value: 7.707958221435547
+        Min Value: -10.229700088500977
+        Value: false
       Axis: Z
       Channel Name: intensity
       Class: rviz/PointCloud2
       Color: 255; 255; 255
-      Color Transformer: FlatColor
+      Color Transformer: AxisColor
       Decay Time: 0
       Enabled: true
       Invert Rainbow: false
@@ -81,9 +84,9 @@ Visualization Manager:
     - Alpha: 1
       Autocompute Intensity Bounds: true
       Autocompute Value Bounds:
-        Max Value: 12.233525276184082
-        Min Value: -17.515254974365234
-        Value: true
+        Max Value: 7.707957744598389
+        Min Value: -10.229700088500977
+        Value: false
       Axis: Z
       Channel Name: intensity
       Class: rviz/PointCloud2
@@ -99,7 +102,7 @@ Visualization Manager:
       Queue Size: 10
       Selectable: true
       Size (Pixels): 6
-      Size (m): 0.10000000149011612
+      Size (m): 0.20000000298023224
       Style: Spheres
       Topic: /original_pcd_pub/pcd_pub
       Unreliable: false
@@ -216,8 +219,8 @@ Visualization Manager:
   Value: true
   Views:
     Current:
-      Class: rviz/XYOrbit
-      Distance: 14.948695182800293
+      Class: rviz/Orbit
+      Distance: 227.10879516601562
       Enable Stereo Rendering:
         Stereo Eye Separation: 0.05999999865889549
         Stereo Focal Distance: 1
@@ -225,17 +228,17 @@ Visualization Manager:
         Value: false
       Field of View: 0.7853981852531433
       Focal Point:
-        X: -0.4606550931930542
-        Y: -1.3631596565246582
-        Z: -3.857514002447715e-06
+        X: 67.63351440429688
+        Y: 2.0810885429382324
+        Z: -2.2860593795776367
       Focal Shape Fixed Size: true
       Focal Shape Size: 0.05000000074505806
       Invert Z Axis: false
       Name: Current View
       Near Clip Distance: 0.009999999776482582
-      Pitch: 0.6002035737037659
+      Pitch: 1.074796199798584
       Target Frame: ego_car
-      Yaw: 4.768707752227783
+      Yaw: -1.6112921237945557
     Saved: ~
 Window Geometry:
   Displays:

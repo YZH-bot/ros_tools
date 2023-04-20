@@ -18,7 +18,6 @@
 #include <tf/transform_broadcaster.h>
 #include <Eigen/Dense>
 #include <tf_conversions/tf_eigen.h>
-#include <tf/transform_datatypes.h>
 #include <opencv/cv.h>
 #include <opencv2/opencv.hpp>
 #include <opencv2/core/eigen.hpp>
@@ -219,6 +218,18 @@ void add_rings_information(pcl::shared_ptr<pcl::PointCloud<PointType>> &ii_scan)
 }
 
 tf::StampedTransform Matrix4dpose2TF(Eigen::Product<Eigen::Matrix4d, Eigen::Matrix4d, 0> &ego_car_link)
+{
+    Eigen::Quaterniond eigen_quat(ego_car_link.block<3, 3>(0, 0).cast<double>());
+    Eigen::Vector3d eigen_trans(ego_car_link.block<3, 1>(0, 3).cast<double>());
+    tf::Quaternion tf_quat;
+    tf::Vector3 tf_trans;
+    tf::quaternionEigenToTF(eigen_quat, tf_quat);
+    tf::vectorEigenToTF(eigen_trans, tf_trans);
+    tf::StampedTransform tf_map2ego(tf::Transform(tf_quat, tf_trans), ros::Time::now(), "world", "ego_car");
+    return tf_map2ego;
+}
+
+tf::StampedTransform Matrix4dpose2TF(Eigen::Matrix4d &ego_car_link)
 {
     Eigen::Quaterniond eigen_quat(ego_car_link.block<3, 3>(0, 0).cast<double>());
     Eigen::Vector3d eigen_trans(ego_car_link.block<3, 1>(0, 3).cast<double>());
