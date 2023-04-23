@@ -25,18 +25,29 @@ int main(int argc, char **argv)
     std::ifstream calibration_fin(calibration_file);
     std::string value;
 
-    Eigen::Matrix4d rotation_z = Eigen::Matrix4d::Identity();
-    rotation_z(0, 0) = 0;
-    rotation_z(0, 1) = 1;
-    rotation_z(1, 0) = -1;
-    rotation_z(1, 1) = 0;
-    rotation_z(2, 3) = 0;
+    // Eigen::Matrix4d rotation_z = Eigen::Matrix4d::Identity();
+    // rotation_z(0, 0) = 0;
+    // rotation_z(0, 1) = 1;
+    // rotation_z(1, 0) = -1;
+    // rotation_z(1, 1) = 0;
+    // rotation_z(2, 3) = 0;
 
-    Eigen::Matrix4d rotation_x = Eigen::Matrix4d::Identity();
-    rotation_x(1, 1) = 0;
-    rotation_x(2, 1) = -1;
-    rotation_x(1, 2) = 1;
-    rotation_x(2, 2) = 0;
+    // Eigen::Matrix4d rotation_x = Eigen::Matrix4d::Identity();
+    // rotation_x(1, 1) = 0;
+    // rotation_x(2, 1) = -1;
+    // rotation_x(1, 2) = 1;
+    // rotation_x(2, 2) = 0;
+
+    // 创建 AngleAxis 对象表示绕 X 轴旋转 -90 弧度
+    Eigen::AngleAxisd rotation_vector_x(M_PI / 2, Eigen::Vector3d::UnitX());
+    Eigen::Matrix3d rotation_x = rotation_vector_x.toRotationMatrix();
+    Eigen::Matrix4d transformation_matrix_x = Eigen::Matrix4d::Identity();
+    transformation_matrix_x.block<3, 3>(0, 0) = rotation_x;
+    // 创建 AngleAxis 对象表示绕 Z 轴旋转 180 弧度
+    Eigen::AngleAxisd rotation_vector_z(M_PI / 2, Eigen::Vector3d::UnitZ());
+    Eigen::Matrix3d rotation_z = rotation_vector_z.toRotationMatrix();
+    Eigen::Matrix4d transformation_matrix_z = Eigen::Matrix4d::Identity();
+    transformation_matrix_z.block<3, 3>(0, 0) = rotation_z;
 
     // done: get cam_velo T
     for (int i = 0; i < 4; i++)
@@ -105,12 +116,11 @@ int main(int argc, char **argv)
         matrix_in(11) = stof(value);
         Eigen::Matrix4d pose_cam(Eigen::Matrix4d::Identity());
         pose_cam.block<3, 4>(0, 0) = matrix_in.transpose();
-        Eigen::Matrix4d pose_velo = pose_cam * t_cam_velo;
+        Eigen::Matrix4d pose_velo = t_cam_velo.inverse() * pose_cam * transformation_matrix_x * transformation_matrix_z;
         pcl::transformPointCloud(*point_cloud, *point_cloud, pose_velo);
-        pcl::transformPointCloud(*point_cloud, *point_cloud, t_cam_velo.inverse().cast<float>());
 
         scans_.push_back(point_cloud);
-        scan_poses_.push_back(rotation_z * rotation_x * pose_velo);
+        scan_poses_.push_back(pose_velo);
         std::cout << line_num++ << '\r' << std::flush;
         if (line_num > 400)
         {

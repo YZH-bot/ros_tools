@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.0.2)
-project(myros_tools)
+project(ros_tools)
 
 add_compile_options(-std=c++17 -O3)
 
@@ -54,6 +54,13 @@ target_link_libraries(bin2global_map
 # play kitti data
 add_executable(play_kitti src/kitti/play_kitti.cpp)
 target_link_libraries(play_kitti
+    ${catkin_LIBRARIES}
+    ${PCL_LIBRARIES}
+    stdc++fs
+)
+
+add_executable(play_kitti_bug src/kitti/play_kitti_bug.cpp)
+target_link_libraries(play_kitti_bug
     ${catkin_LIBRARIES}
     ${PCL_LIBRARIES}
     stdc++fs

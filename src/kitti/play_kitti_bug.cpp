@@ -21,8 +21,8 @@ int main(int argc, char *argv[])
     string sequence_pose_path_;
     std::vector<pcl::PointCloud<PointType>::Ptr> scans_;
     std::vector<Eigen::Matrix4d> scan_poses_;
-    nh.param<string>("sequence_scan_dir_", sequence_scan_dir_, "/media/yzh/T7/Study/SLAM/Dataset/data_odometry_velodyne/dataset/sequences/05/velodyne/");
-    nh.param<string>("sequence_pose_path_", sequence_pose_path_, "/media/yzh/T7/Study/SLAM/Dataset/data_odometry_labels/dataset/sequences/05/poses.txt");
+    nh.param<string>("sequence_scan_dir_", sequence_scan_dir_, "/home/yzh/learning/SLAM/datas/kitti_dateset/sequences/00/velodyne/");
+    nh.param<string>("sequence_pose_path_", sequence_pose_path_, "/home/yzh/learning/SLAM/datas/kitti_dateset/sequences/00/poses/05.txt");
     cout << sequence_scan_dir_ << std::endl;
     cout << sequence_pose_path_ << std::endl;
 

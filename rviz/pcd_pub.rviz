@@ -8,6 +8,9 @@ Panels:
         - /earasor_pcd1/Autocompute Value Bounds1
         - /original_pcd1
         - /original_pcd1/Autocompute Value Bounds1
+        - /PointCloud21
+        - /TF1
+        - /TF1/Frames1
       Splitter Ratio: 0.5
     Tree Height: 790
   - Class: rviz/Selection
@@ -39,7 +42,7 @@ Visualization Manager:
       Cell Size: 1
       Class: rviz/Grid
       Color: 160; 160; 164
-      Enabled: false
+      Enabled: true
       Line Style:
         Line Width: 0.029999999329447746
         Value: Lines
@@ -51,8 +54,8 @@ Visualization Manager:
         Z: 0
       Plane: XY
       Plane Cell Count: 10
-      Reference Frame: <Fixed Frame>
-      Value: false
+      Reference Frame: ego_car
+      Value: true
     - Alpha: 1
       Autocompute Intensity Bounds: true
       Autocompute Value Bounds:
@@ -140,14 +143,14 @@ Visualization Manager:
     - Alpha: 1
       Autocompute Intensity Bounds: true
       Autocompute Value Bounds:
-        Max Value: 10
-        Min Value: -10
+        Max Value: 6.18424654006958
+        Min Value: -11.795402526855469
         Value: true
       Axis: Z
       Channel Name: intensity
       Class: rviz/PointCloud2
       Color: 255; 255; 255
-      Color Transformer: Intensity
+      Color Transformer: AxisColor
       Decay Time: 0
       Enabled: true
       Invert Rainbow: false
@@ -226,7 +229,7 @@ Visualization Manager:
   Views:
     Current:
       Class: rviz/Orbit
-      Distance: 40.906768798828125
+      Distance: 25.064922332763672
       Enable Stereo Rendering:
         Stereo Eye Separation: 0.05999999865889549
         Stereo Focal Distance: 1
@@ -234,17 +237,17 @@ Visualization Manager:
         Value: false
       Field of View: 0.7853981852531433
       Focal Point:
-        X: -15.922863006591797
-        Y: 5.543975353240967
-        Z: -2.2442362308502197
+        X: 1.5215455293655396
+        Y: -0.22813665866851807
+        Z: 3.5015275478363037
       Focal Shape Fixed Size: true
       Focal Shape Size: 0.05000000074505806
       Invert Z Axis: false
       Name: Current View
       Near Clip Distance: 0.009999999776482582
-      Pitch: 1.074796199798584
+      Pitch: 0.43479642271995544
       Target Frame: ego_car
-      Yaw: -1.6112921237945557
+      Yaw: 2.160079002380371
     Saved: ~
 Window Geometry:
   Displays:

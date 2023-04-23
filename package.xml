@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <package format="2">
-  <name>myros_tools</name>
+  <name>ros_tools</name>
   <version>0.0.0</version>
   <description>The myros_tools package</description>
 

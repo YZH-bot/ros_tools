@@ -1,7 +1,7 @@
 <launch>
-    <node name="play_kitti" pkg="myros_tools" type="play_kitti" output="screen">
+    <node name="play_kitti" pkg="ros_tools" type="play_kitti" output="screen">
         <rosparam param="/sequence_scan_dir_">"/home/yzh/learning/SLAM/datas/kitti_dateset/sequences/00/velodyne"</rosparam>
         <rosparam param="/sequence_pose_path_">"/home/yzh/learning/SLAM/datas/kitti_dateset/sequences/00/poses/00.txt"</rosparam>
     </node>
-    <node name="rviz" pkg="rviz" type="rviz" args="-d $(find myros_tools)/rviz/pcd_pub.rviz"/>
+    <node name="rviz" pkg="rviz" type="rviz" args="-d $(find ros_tools)/rviz/pcd_pub.rviz"/>
 </launch>
