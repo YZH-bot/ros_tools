@@ -15,9 +15,9 @@
 - [pcd_pub](myros_tools/src/pcd_pub.cpp): Publish the global map pcd file to rviz.
   ![img](imgs/00.png)
   Poor raycasting: Using raycasting methods to remove dynamic objects.(Not upload yet)
-- | Original map      | Raycasting dynamic removal     |
-  | ----------------- | ------------------------------ |
-  | ![img](imgs/05.png) | ![img](imgs/poor_raycasting.png) |
+- | Original map       | Raycasting dynamic removal     |
+  | ------------------ | ------------------------------ |
+  | ![img](imgs/05r.png) | ![img](imgs/poor_raycasting.png) |
 - [play_kitti](myros_tools/src/play_kitti.cpp): Publish the kitti bin data and TF to rviz in real-time in the style of query scan.
 
 ```
