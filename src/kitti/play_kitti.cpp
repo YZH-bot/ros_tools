@@ -49,6 +49,11 @@ int main(int argc, char **argv)
     Eigen::Matrix4d transformation_matrix_z = Eigen::Matrix4d::Identity();
     transformation_matrix_z.block<3, 3>(0, 0) = rotation_z;
 
+    // 定义平移向量
+    Eigen::Translation3d translation_vector(0.0, 0.0, 0.0); // 以 (1, 2, 3) 为平移向量
+    Eigen::Matrix4d transformation_matrix_height = Eigen::Matrix4d::Identity();
+    transformation_matrix_height.block<3, 1>(0, 3) = translation_vector.vector();
+
     // done: get cam_velo T
     for (int i = 0; i < 4; i++)
     {
@@ -120,7 +125,7 @@ int main(int argc, char **argv)
         pcl::transformPointCloud(*point_cloud, *point_cloud, pose_velo);
 
         scans_.push_back(point_cloud);
-        scan_poses_.push_back(pose_velo);
+        scan_poses_.push_back(transformation_matrix_height * pose_velo);
         std::cout << line_num++ << '\r' << std::flush;
         if (line_num > 400)
         {
