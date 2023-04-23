@@ -9,12 +9,15 @@
 
 ## ⭐️ Node Example
 
-* [bin2global_map](myros_tools/src/bin2global_map.cpp): Generates a global map form kitti datas. **(Comment out ``dynamic_mapping::DiscreteSpace space``, which it is my own data struture for dynamic mapping in the code if you want to use the node, do the same operation in the CmakeLists.txt.)**![img](imgs/05.png)
+* [bin2global_map](myros_tools/src/bin2global_map.cpp): Generates a global map form kitti datas.
+* ![img](imgs/05c.png)
 
 - [pcd_pub](myros_tools/src/pcd_pub.cpp): Publish the global map pcd file to rviz.
-  ![img](imgs/05r.png)
+  ![img](imgs/00.png)
   Poor raycasting: Using raycasting methods to remove dynamic objects.(Not upload yet)
-  ![img](imgs/poor_raycasting.png)
+- | Original map      | Raycasting dynamic removal     |
+  | ----------------- | ------------------------------ |
+  | ![img](imgs/05.png) | ![img](imgs/poor_raycasting.png) |
 - [play_kitti](myros_tools/src/play_kitti.cpp): Publish the kitti bin data and TF to rviz in real-time in the style of query scan.
 
 ```
