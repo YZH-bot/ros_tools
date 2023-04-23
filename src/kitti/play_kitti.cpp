@@ -17,10 +17,10 @@
 
 int main(int argc, char **argv)
 {
-    std::string velodyne_path = "/media/yzh/T7/Study/SLAM/Dataset/data_odometry_velodyne/dataset/sequences/05/velodyne";
-    std::string calibration_file = "/media/yzh/T7/Study/SLAM/Dataset/data_odometry_calib/dataset/sequences/05/calib.txt";
-    std::string time_file = "/media/yzh/T7/Study/SLAM/Dataset/data_odometry_calib/dataset/sequences/05/times.txt";
-    std::string pose_file = "/media/yzh/T7/Study/SLAM/Dataset/odometry_ground_truth_poses/poses/05.txt";
+    std::string velodyne_path = "/home/yzh/learning/SLAM/datas/kitti_dateset/sequences/00/velodyne";
+    std::string calibration_file = "/home/yzh/learning/SLAM/datas/kitti_dateset/sequences/00/calib.txt";
+    std::string time_file = "/home/yzh/learning/SLAM/datas/kitti_dateset/sequences/00/times.txt";
+    std::string pose_file = "/home/yzh/learning/SLAM/datas/kitti_dateset/sequences/00/poses/05.txt";
 
     std::ifstream calibration_fin(calibration_file);
     std::string value;
@@ -30,7 +30,7 @@ int main(int argc, char **argv)
     rotation_z(0, 1) = 1;
     rotation_z(1, 0) = -1;
     rotation_z(1, 1) = 0;
-    rotation_z(2, 3) = 1.73;
+    rotation_z(2, 3) = 0;
 
     Eigen::Matrix4d rotation_x = Eigen::Matrix4d::Identity();
     rotation_x(1, 1) = 0;

@@ -27,7 +27,7 @@ Panels:
   - Class: rviz/Time
     Name: Time
     SyncMode: 0
-    SyncSource: earasor_pcd
+    SyncSource: PointCloud2
 Preferences:
   PromptSaveOnExit: true
 Toolbars:
@@ -170,6 +170,10 @@ Visualization Manager:
       Frame Timeout: 15
       Frames:
         All Enabled: true
+        ego_car:
+          Value: true
+        world:
+          Value: true
       Marker Alpha: 1
       Marker Scale: 10
       Name: TF
@@ -177,7 +181,9 @@ Visualization Manager:
       Show Axes: true
       Show Names: true
       Tree:
-        {}
+        world:
+          ego_car:
+            {}
       Update Interval: 0
       Value: true
     - Class: rviz/Image
@@ -220,7 +226,7 @@ Visualization Manager:
   Views:
     Current:
       Class: rviz/Orbit
-      Distance: 227.10879516601562
+      Distance: 40.906768798828125
       Enable Stereo Rendering:
         Stereo Eye Separation: 0.05999999865889549
         Stereo Focal Distance: 1
@@ -228,9 +234,9 @@ Visualization Manager:
         Value: false
       Field of View: 0.7853981852531433
       Focal Point:
-        X: 67.63351440429688
-        Y: 2.0810885429382324
-        Z: -2.2860593795776367
+        X: -15.922863006591797
+        Y: 5.543975353240967
+        Z: -2.2442362308502197
       Focal Shape Fixed Size: true
       Focal Shape Size: 0.05000000074505806
       Invert Z Axis: false
