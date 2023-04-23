@@ -50,7 +50,7 @@ int main(int argc, char **argv)
     transformation_matrix_z.block<3, 3>(0, 0) = rotation_z;
 
     // 定义平移向量
-    Eigen::Translation3d translation_vector(0.0, 0.0, 0.0); // 以 (1, 2, 3) 为平移向量
+    Eigen::Translation3d translation_vector(0.0, 0.0, 1.73);
     Eigen::Matrix4d transformation_matrix_height = Eigen::Matrix4d::Identity();
     transformation_matrix_height.block<3, 1>(0, 3) = translation_vector.vector();
 
@@ -121,11 +121,11 @@ int main(int argc, char **argv)
         matrix_in(11) = stof(value);
         Eigen::Matrix4d pose_cam(Eigen::Matrix4d::Identity());
         pose_cam.block<3, 4>(0, 0) = matrix_in.transpose();
-        Eigen::Matrix4d pose_velo = t_cam_velo.inverse() * pose_cam * transformation_matrix_x * transformation_matrix_z;
+        Eigen::Matrix4d pose_velo = transformation_matrix_height * t_cam_velo.inverse() * pose_cam * transformation_matrix_x * transformation_matrix_z;
         pcl::transformPointCloud(*point_cloud, *point_cloud, pose_velo);
 
         scans_.push_back(point_cloud);
-        scan_poses_.push_back(transformation_matrix_height * pose_velo);
+        scan_poses_.push_back(pose_velo);
         std::cout << line_num++ << '\r' << std::flush;
         if (line_num > 400)
         {

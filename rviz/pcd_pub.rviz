@@ -9,8 +9,10 @@ Panels:
         - /original_pcd1
         - /original_pcd1/Autocompute Value Bounds1
         - /PointCloud21
+        - /PointCloud21/Autocompute Value Bounds1
         - /TF1
         - /TF1/Frames1
+        - /TF1/Frames1/ego_car1
       Splitter Ratio: 0.5
     Tree Height: 790
   - Class: rviz/Selection
@@ -38,10 +40,10 @@ Toolbars:
 Visualization Manager:
   Class: ""
   Displays:
-    - Alpha: 0.5
+    - Alpha: 1
       Cell Size: 1
       Class: rviz/Grid
-      Color: 160; 160; 164
+      Color: 255; 255; 255
       Enabled: true
       Line Style:
         Line Width: 0.029999999329447746
@@ -143,9 +145,9 @@ Visualization Manager:
     - Alpha: 1
       Autocompute Intensity Bounds: true
       Autocompute Value Bounds:
-        Max Value: 6.18424654006958
-        Min Value: -11.795402526855469
-        Value: true
+        Max Value: 6.363232135772705
+        Min Value: -7.730114459991455
+        Value: false
       Axis: Z
       Channel Name: intensity
       Class: rviz/PointCloud2
@@ -229,7 +231,7 @@ Visualization Manager:
   Views:
     Current:
       Class: rviz/Orbit
-      Distance: 25.064922332763672
+      Distance: 31.080503463745117
       Enable Stereo Rendering:
         Stereo Eye Separation: 0.05999999865889549
         Stereo Focal Distance: 1
@@ -245,9 +247,9 @@ Visualization Manager:
       Invert Z Axis: false
       Name: Current View
       Near Clip Distance: 0.009999999776482582
-      Pitch: 0.43479642271995544
+      Pitch: -0.00020354799926280975
       Target Frame: ego_car
-      Yaw: 2.160079002380371
+      Yaw: 4.473263263702393
     Saved: ~
 Window Geometry:
   Displays:
