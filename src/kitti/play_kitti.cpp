@@ -20,7 +20,7 @@ int main(int argc, char **argv)
     std::string velodyne_path = "/home/yzh/learning/SLAM/datas/kitti_dateset/sequences/00/velodyne";
     std::string calibration_file = "/home/yzh/learning/SLAM/datas/kitti_dateset/sequences/00/calib.txt";
     std::string time_file = "/home/yzh/learning/SLAM/datas/kitti_dateset/sequences/00/times.txt";
-    std::string pose_file = "/home/yzh/learning/SLAM/datas/kitti_dateset/sequences/00/poses/05.txt";
+    std::string pose_file = "/home/yzh/learning/SLAM/datas/kitti_dateset/sequences/00/poses.txt";
 
     std::ifstream calibration_fin(calibration_file);
     std::string value;
@@ -167,6 +167,7 @@ int main(int argc, char **argv)
         else
         {
             scan_idx = 0;
+            std::exit(0);
         }
     }
     return 0;

@@ -4,15 +4,12 @@ Panels:
     Name: Displays
     Property Tree Widget:
       Expanded:
-        - /earasor_pcd1
+        - /Grid1
         - /earasor_pcd1/Autocompute Value Bounds1
-        - /original_pcd1
         - /original_pcd1/Autocompute Value Bounds1
-        - /PointCloud21
-        - /PointCloud21/Autocompute Value Bounds1
-        - /TF1
+        - /scans_pub1/Autocompute Value Bounds1
+        - /kitti_map_pub1
         - /TF1/Frames1
-        - /TF1/Frames1/ego_car1
       Splitter Ratio: 0.5
     Tree Height: 790
   - Class: rviz/Selection
@@ -32,7 +29,7 @@ Panels:
   - Class: rviz/Time
     Name: Time
     SyncMode: 0
-    SyncSource: PointCloud2
+    SyncSource: kitti_map_pub
 Preferences:
   PromptSaveOnExit: true
 Toolbars:
@@ -54,7 +51,7 @@ Visualization Manager:
         X: 0
         Y: 0
         Z: 0
-      Plane: XY
+      Plane: YZ
       Plane Cell Count: 10
       Reference Frame: ego_car
       Value: true
@@ -158,7 +155,7 @@ Visualization Manager:
       Invert Rainbow: false
       Max Color: 255; 255; 255
       Min Color: 0; 0; 0
-      Name: PointCloud2
+      Name: scans_pub
       Position Transformer: XYZ
       Queue Size: 10
       Selectable: true
@@ -166,6 +163,34 @@ Visualization Manager:
       Size (m): 0.10000000149011612
       Style: Spheres
       Topic: /scans_pub
+      Unreliable: false
+      Use Fixed Frame: true
+      Use rainbow: true
+      Value: true
+    - Alpha: 1
+      Autocompute Intensity Bounds: true
+      Autocompute Value Bounds:
+        Max Value: 6.363232135772705
+        Min Value: -7.730114459991455
+        Value: false
+      Axis: Z
+      Channel Name: intensity
+      Class: rviz/PointCloud2
+      Color: 255; 255; 255
+      Color Transformer: AxisColor
+      Decay Time: 0
+      Enabled: true
+      Invert Rainbow: false
+      Max Color: 255; 255; 255
+      Min Color: 0; 0; 0
+      Name: kitti_map_pub
+      Position Transformer: XYZ
+      Queue Size: 10
+      Selectable: true
+      Size (Pixels): 3
+      Size (m): 0.20000000298023224
+      Style: Points
+      Topic: /kitti_map_pub
       Unreliable: false
       Use Fixed Frame: true
       Use rainbow: true
@@ -231,7 +256,7 @@ Visualization Manager:
   Views:
     Current:
       Class: rviz/Orbit
-      Distance: 31.080503463745117
+      Distance: 95.2082748413086
       Enable Stereo Rendering:
         Stereo Eye Separation: 0.05999999865889549
         Stereo Focal Distance: 1
@@ -239,17 +264,17 @@ Visualization Manager:
         Value: false
       Field of View: 0.7853981852531433
       Focal Point:
-        X: 1.5215455293655396
-        Y: -0.22813665866851807
-        Z: 3.5015275478363037
+        X: 10.203025817871094
+        Y: 6.455927848815918
+        Z: 36.2015380859375
       Focal Shape Fixed Size: true
       Focal Shape Size: 0.05000000074505806
       Invert Z Axis: false
       Name: Current View
       Near Clip Distance: 0.009999999776482582
-      Pitch: -0.00020354799926280975
+      Pitch: 1.2597965002059937
       Target Frame: ego_car
-      Yaw: 4.473263263702393
+      Yaw: 2.0264463424682617
     Saved: ~
 Window Geometry:
   Displays:
