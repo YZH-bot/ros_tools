@@ -9,7 +9,7 @@
 - kitti data setups
   | Original map       | Raycasting dynamic removal     |
   | ------------------ | ------------------------------ |
-  | <img src="imgs/passat_sensors_920.png" height="300"> | <img src="imgs/setup_top_view.png" height="300"> |
+  | <img src="imgs/passat_sensors_920.png" height="200"> | <img src="imgs/setup_top_view.png" height="200"> |
 
 ## ⭐️ Node Example
 
