@@ -61,7 +61,7 @@ out.gif 为输出文件名
 ```
 
 - 转换为range images需要的一些参数：
-  <img src="imgs/velodyne_params.png" height="500">
+<img src="imgs/velodyne_params.png" height="500">
 
 ## *Reference*
 
