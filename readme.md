@@ -6,6 +6,10 @@
 
 - Based on C++17
 - ROS (and Eigen, PCL, OpenMP): the all examples in this readme are tested under Ubuntu 20.04 and ROS Noetic.
+- kitti data setups
+  | Original map       | Raycasting dynamic removal     |
+  | ------------------ | ------------------------------ |
+  | <img src="imgs/passat_sensors_920.png" height="300"> | <img src="imgs/setup_top_view.png" height="300"> |
 
 ## ⭐️ Node Example
 
