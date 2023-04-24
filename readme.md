@@ -6,7 +6,9 @@
 
 - Based on C++17
 - ROS (and Eigen, PCL, OpenMP): the all examples in this readme are tested under Ubuntu 20.04 and ROS Noetic.
-- Kitti data setups
+- [Kitti data](http://semantic-kitti.org/) setups
+  - [百度网盘Kitti data](https://pan.baidu.com/s/1JYfp-gSqZp-7wcS7Tb4DUA) 提取码: jbbc 
+
   | Original map       | Raycasting dynamic removal     |
   | ------------------ | ------------------------------ |
   | <img src="imgs/passat_sensors_920.png" height="200"> | <img src="imgs/setup_top_view.png" height="200"> |
