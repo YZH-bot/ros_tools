@@ -24,17 +24,17 @@
   | ------------------ | ------------------------------ |
   | <img src="imgs/05r.png" height="300"> | <img src="imgs/poor_raycasting.png" height="300"> |
 - [play_kitti](myros_tools/src/play_kitti.cpp): Publish the kitti bin data and TF to rviz in real-time in the style of query scan.
-<center><img src="imgs/scan.png" width="500"></center>
+  <center><img src="imgs/scan.png" width="500"></center>
 ```
 roslaunch myros_tools play_kitti.launch 
 ```
 
 
 - With ring 0-63:
-<center><img src="imgs/ring.png" width="500"></center>
+  <center><img src="imgs/ring.png" width="500"></center>
 
 - [kitti2range_image](myros_tools/src/kitti2range_image.cpp): Convert the kitti velodyne to range images. **貌似kitti数据集的lidar frame 180度左右存在一个严重的噪点数据，从图像中心可以看出来，有一个蓝色近距离点**
-![img](imgs/range_images.gif)
+  ![img](imgs/range_images.gif)
 
 - [kblistening](src/others/kblistening.cpp)：Check whether the keyboard is pressed so that the publication of bin can pause like rosbag.
   - requirement:
