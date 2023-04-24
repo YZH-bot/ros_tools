@@ -23,11 +23,9 @@
   | Original map       | Raycasting dynamic removal     |
   | ------------------ | ------------------------------ |
   | <img src="imgs/05r.png" height="300"> | <img src="imgs/poor_raycasting.png" height="300"> |
-- [play_kitti](myros_tools/src/play_kitti.cpp): Publish the kitti bin data and TF to rviz in real-time in the style of query scan.
+- [play_kitti](myros_tools/src/play_kitti.cpp): Publish the kitti bin data and TF to rviz in real-time in the style of query scan. ```roslaunch myros_tools play_kitti.launch ```
   <center><img src="imgs/scan.png" width="500"></center>
-```
-roslaunch myros_tools play_kitti.launch 
-```
+  
 
 
 - With ring 0-63:
@@ -63,8 +61,7 @@ out.gif 为输出文件名
 ```
 
 - 转换为range images需要的一些参数：
-
-<img src="imgs/velodyne_params.png" height="500">
+  <img src="imgs/velodyne_params.png" height="500">
 
 ## *Reference*
 
