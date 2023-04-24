@@ -8,7 +8,6 @@ Panels:
         - /earasor_pcd1/Autocompute Value Bounds1
         - /original_pcd1/Autocompute Value Bounds1
         - /scans_pub1/Autocompute Value Bounds1
-        - /kitti_map_pub1
         - /TF1/Frames1
       Splitter Ratio: 0.5
     Tree Height: 790
@@ -29,7 +28,7 @@ Panels:
   - Class: rviz/Time
     Name: Time
     SyncMode: 0
-    SyncSource: kitti_map_pub
+    SyncSource: scans_pub
 Preferences:
   PromptSaveOnExit: true
 Toolbars:
@@ -159,9 +158,9 @@ Visualization Manager:
       Position Transformer: XYZ
       Queue Size: 10
       Selectable: true
-      Size (Pixels): 3
+      Size (Pixels): 6
       Size (m): 0.10000000149011612
-      Style: Spheres
+      Style: Points
       Topic: /scans_pub
       Unreliable: false
       Use Fixed Frame: true
@@ -187,7 +186,7 @@ Visualization Manager:
       Position Transformer: XYZ
       Queue Size: 10
       Selectable: true
-      Size (Pixels): 3
+      Size (Pixels): 6
       Size (m): 0.20000000298023224
       Style: Points
       Topic: /kitti_map_pub
@@ -255,8 +254,8 @@ Visualization Manager:
   Value: true
   Views:
     Current:
-      Class: rviz/Orbit
-      Distance: 95.2082748413086
+      Class: rviz/XYOrbit
+      Distance: 20.550840377807617
       Enable Stereo Rendering:
         Stereo Eye Separation: 0.05999999865889549
         Stereo Focal Distance: 1
@@ -264,17 +263,17 @@ Visualization Manager:
         Value: false
       Field of View: 0.7853981852531433
       Focal Point:
-        X: 10.203025817871094
-        Y: 6.455927848815918
-        Z: 36.2015380859375
+        X: 12.558788299560547
+        Y: -6.965172290802002
+        Z: 1.8127693692804314e-06
       Focal Shape Fixed Size: true
       Focal Shape Size: 0.05000000074505806
       Invert Z Axis: false
       Name: Current View
       Near Clip Distance: 0.009999999776482582
-      Pitch: 1.2597965002059937
+      Pitch: 0.7904617786407471
       Target Frame: ego_car
-      Yaw: 2.0264463424682617
+      Yaw: 6.2612457275390625
     Saved: ~
 Window Geometry:
   Displays:

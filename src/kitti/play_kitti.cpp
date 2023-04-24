@@ -49,11 +49,6 @@ int main(int argc, char **argv)
     Eigen::Matrix4d transformation_matrix_z = Eigen::Matrix4d::Identity();
     transformation_matrix_z.block<3, 3>(0, 0) = rotation_z;
 
-    // 定义平移向量
-    Eigen::Translation3d translation_vector(0.0, 0.0, 1.73);
-    Eigen::Matrix4d transformation_matrix_height = Eigen::Matrix4d::Identity();
-    transformation_matrix_height.block<3, 1>(0, 3) = translation_vector.vector();
-
     // done: get cam_velo T
     for (int i = 0; i < 4; i++)
     {
@@ -121,11 +116,13 @@ int main(int argc, char **argv)
         matrix_in(11) = stof(value);
         Eigen::Matrix4d pose_cam(Eigen::Matrix4d::Identity());
         pose_cam.block<3, 4>(0, 0) = matrix_in.transpose();
-        Eigen::Matrix4d pose_velo = transformation_matrix_height * t_cam_velo.inverse() * pose_cam * transformation_matrix_x * transformation_matrix_z;
+        Eigen::Matrix4d pose_velo = pose_cam * t_cam_velo;
         pcl::transformPointCloud(*point_cloud, *point_cloud, pose_velo);
-
+        pcl::transformPointCloud(*point_cloud, *point_cloud, t_cam_velo.inverse().cast<float>());
         scans_.push_back(point_cloud);
-        scan_poses_.push_back(pose_velo);
+
+        Eigen::Matrix4d pose_pub = t_cam_velo.inverse() * pose_cam * transformation_matrix_x * transformation_matrix_z;
+        scan_poses_.push_back(pose_pub);
         std::cout << line_num++ << '\r' << std::flush;
         if (line_num > 400)
         {

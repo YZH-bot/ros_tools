@@ -1,0 +1,5 @@
+<launch>
+    <node name="bin2global_map" pkg="ros_tools" type="bin2global_map" output="screen">
+    </node>
+    <node name="rviz" pkg="rviz" type="rviz" args="-d $(find ros_tools)/rviz/pcd_pub.rviz"/>
+</launch>
