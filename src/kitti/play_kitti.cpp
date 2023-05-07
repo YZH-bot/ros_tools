@@ -21,6 +21,7 @@ int main(int argc, char **argv)
     std::string calibration_file = "/home/yzh/learning/SLAM/datas/kitti_dateset/sequences/00/calib.txt";
     std::string time_file = "/home/yzh/learning/SLAM/datas/kitti_dateset/sequences/00/times.txt";
     std::string pose_file = "/home/yzh/learning/SLAM/datas/kitti_dateset/sequences/00/poses.txt";
+    std::string label_file = "/home/yzh/learning/SLAM/datas/kitti_dateset/sequences/00/labels/";
 
     std::ifstream calibration_fin(calibration_file);
     std::string value;
@@ -73,10 +74,10 @@ int main(int argc, char **argv)
     std::vector<Eigen::Matrix4d> scan_poses_;
     while (std::getline(time_fin, value))
     {
-        std::stringstream velo_ss;
+        std::stringstream velo_ss, label_ss;
         velo_ss << velodyne_path << "/" << std::setfill('0') << std::setw(6)
                 << line_num << ".bin";
-
+                
         int32_t num = 1000000;
         float *data = (float *)malloc(num * sizeof(float));
 
@@ -107,6 +108,7 @@ int main(int argc, char **argv)
         fclose(stream);
         delete data;
 
+        // ##################### load pose ########################
         for (int i = 0; i < 11; i++)
         {
             std::getline(pose_fin, value, ' ');

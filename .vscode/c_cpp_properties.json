@@ -1,0 +1,39 @@
+{
+  "configurations": [
+    {
+      "browse": {
+        "databaseFilename": "${default}",
+        "limitSymbolsToIncludedHeaders": false
+      },
+      "includePath": [
+        "/home/yzh/ros_ws/devel/include/**",
+        "/home/yzh/ros_ws/devel_isolated/erasor/include/**",
+        "/opt/ros/noetic/include/**",
+        "/home/yzh/ros_ws/src/dynablox/drift_simulation/include/**",
+        "/home/yzh/ros_ws/src/dynablox/dynablox/include/**",
+        "/home/yzh/ros_ws/src/dynablox/dynablox_ros/include/**",
+        "/home/yzh/ros_ws/src/dynablox_tools/eigen_checks/include/**",
+        "/home/yzh/ros_ws/src/ERASOR/include/**",
+        "/home/yzh/ros_ws/src/hash_map_v2/include/**",
+        "/home/yzh/ros_ws/src/localization_in_auto_driving/lidar_localization/include/**",
+        "/home/yzh/ros_ws/src/dynablox_tools/lidar_undistortion/lidar_undistortion/include/**",
+        "/home/yzh/ros_ws/src/dynablox_tools/minkindr/minkindr/include/**",
+        "/home/yzh/ros_ws/src/dynablox_tools/minkindr_ros/minkindr_conversions/include/**",
+        "/home/yzh/ros_ws/src/dynablox_tools/numpy_eigen/include/**",
+        "/home/yzh/ros_ws/src/dynablox_tools/ouster-ros/include/**",
+        "/home/yzh/ros_ws/src/removert/include/**",
+        "/home/yzh/ros_ws/src/ros_tools/include/**",
+        "/home/yzh/ros_ws/src/dynablox_tools/voxblox/voxblox/include/**",
+        "/home/yzh/ros_ws/src/dynablox_tools/voxblox/voxblox_ros/include/**",
+        "/home/yzh/ros_ws/src/dynablox_tools/voxblox/voxblox_rviz_plugin/include/**",
+        "/usr/include/**"
+      ],
+      "name": "ROS",
+      "intelliSenseMode": "gcc-x64",
+      "compilerPath": "/usr/bin/gcc",
+      "cStandard": "gnu11",
+      "cppStandard": "c++14"
+    }
+  ],
+  "version": 4
+}

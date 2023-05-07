@@ -70,3 +70,5 @@ out.gif 为输出文件名
 [Removert: https://github.com/irapkaist/removert](https://github.com/irapkaist/removert)
 
 [https://github.com/ulterzlw/kitti2map](https://github.com/ulterzlw/kitti2map)
+
+[https://github.com/wangx1996/Semantic-Kitti-Label-Read/blob/main/semantic_kitti/src/semantic_kitti_read.cpp](https://github.com/wangx1996/Semantic-Kitti-Label-Read/blob/main/semantic_kitti/src/semantic_kitti_read.cpp)

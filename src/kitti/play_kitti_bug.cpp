@@ -21,8 +21,8 @@ int main(int argc, char *argv[])
     string sequence_pose_path_;
     std::vector<pcl::PointCloud<PointType>::Ptr> scans_;
     std::vector<Eigen::Matrix4d> scan_poses_;
-    nh.param<string>("sequence_scan_dir_", sequence_scan_dir_, "/home/yzh/learning/SLAM/datas/kitti_dateset/sequences/00/velodyne/");
-    nh.param<string>("sequence_pose_path_", sequence_pose_path_, "/home/yzh/learning/SLAM/datas/kitti_dateset/sequences/00/poses/05.txt");
+    nh.param<string>("sequence_scan_dir_", sequence_scan_dir_, "/media/yzh/YZH2/KITTI Semantic/data_odometry_velodyne/dataset/sequences/05/velodyne/");
+    nh.param<string>("sequence_pose_path_", sequence_pose_path_, "/media/yzh/YZH2/KITTI Semantic/data_odometry_labels/dataset/sequences/05/poses.txt");
     cout << sequence_scan_dir_ << std::endl;
     cout << sequence_pose_path_ << std::endl;
 
@@ -32,7 +32,7 @@ int main(int argc, char *argv[])
     auto scans_size = scans_.size();
     ros::Publisher scans_pub = nh.advertise<sensor_msgs::PointCloud2>("scans_pub", 1);
     tf::TransformBroadcaster tf_broadcaster;
-    ros::Rate rate(5);
+    ros::Rate rate(10);
     int scan_idx = 0;
     while (ros::ok())
     {
