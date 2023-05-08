@@ -26,13 +26,14 @@
         "/home/yzh/ros_ws/src/dynablox_tools/voxblox/voxblox/include/**",
         "/home/yzh/ros_ws/src/dynablox_tools/voxblox/voxblox_ros/include/**",
         "/home/yzh/ros_ws/src/dynablox_tools/voxblox/voxblox_rviz_plugin/include/**",
-        "/usr/include/**"
+        "/usr/include/**",
+        "/home/robot-nuc12/catkin_ws/src/ros_tools/include/**"
       ],
       "name": "ROS",
       "intelliSenseMode": "gcc-x64",
       "compilerPath": "/usr/bin/gcc",
       "cStandard": "gnu11",
-      "cppStandard": "c++14"
+      "cppStandard": "c++17"
     }
   ],
   "version": 4

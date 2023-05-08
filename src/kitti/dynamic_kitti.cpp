@@ -295,14 +295,19 @@ int main(int argc, char **argv)
     ros::init(argc, argv, "semantic_kitti_node");
     ros::NodeHandle nh;
 
-    ros::Publisher publidar = nh.advertise<sensor_msgs::PointCloud2>("/seg_pointcloud", 1);
+    ros::Publisher publidar = nh.advertise<sensor_msgs::PointCloud2>("/scans_pub", 1);
     tf::TransformBroadcaster ego_tf_broadcaster;
 
     // ##################### data path ########################
-    string datapath = "/media/yzh/YZH2/KITTI Semantic/data_odometry_velodyne/dataset/sequences/05/velodyne/";
-    string lablespath = "/media/yzh/YZH2/KITTI Semantic/data_odometry_labels/dataset/sequences/05/labels/";
-    string pose_file = "/media/yzh/YZH2/KITTI Semantic/data_odometry_labels/dataset/sequences/05/poses.txt";
-    string calibration_file = "/media/yzh/YZH2/KITTI Semantic/data_odometry_calib/dataset/sequences/05/calib.txt";
+    // string datapath = "/media/yzh/YZH2/KITTI Semantic/data_odometry_velodyne/dataset/sequences/05/velodyne/";
+    // string lablespath = "/media/yzh/YZH2/KITTI Semantic/data_odometry_labels/dataset/sequences/05/labels/";
+    // string pose_file = "/media/yzh/YZH2/KITTI Semantic/data_odometry_labels/dataset/sequences/05/poses.txt";
+    // string calibration_file = "/media/yzh/YZH2/KITTI Semantic/data_odometry_calib/dataset/sequences/05/calib.txt";
+
+    string datapath = "/media/robot-nuc12/T7/Study/SLAM/Dataset/data_odometry_velodyne/dataset/sequences/05/velodyne/";
+    string lablespath = "/media/robot-nuc12/T7/Study/SLAM/Dataset/data_odometry_labels/dataset/sequences/05/labels/";
+    string pose_file = "/media/robot-nuc12/T7/Study/SLAM/Dataset/data_odometry_labels/dataset/sequences/05/poses.txt";
+    string calibration_file = "/media/robot-nuc12/T7/Study/SLAM/Dataset/data_odometry_calib/dataset/sequences/05/calib.txt";
 
     // 创建 AngleAxis 对象表示绕 X 轴旋转 -90 弧度
     Eigen::AngleAxisd rotation_vector_x(M_PI / 2, Eigen::Vector3d::UnitX());
@@ -427,19 +432,15 @@ int main(int argc, char **argv)
         matrix_in(11) = stof(value);
         Eigen::Matrix4d pose_cam(Eigen::Matrix4d::Identity());
         pose_cam.block<3, 4>(0, 0) = matrix_in.transpose();
-        Eigen::Matrix4d pose_velo = pose_cam * t_cam_velo;
-        pcl::transformPointCloud(*Cloud, *Cloud, pose_velo);
-        pcl::transformPointCloud(*Cloud, *Cloud, t_cam_velo.inverse().cast<float>());
+        Eigen::Matrix4d lidar = t_cam_velo.inverse() * pose_cam * transformation_matrix_x * transformation_matrix_z;
+        pcl::transformPointCloud(*Cloud, *Cloud, lidar);
 
         // ##################### TF ########################
-        auto lidar = t_cam_velo.inverse() * pose_cam * transformation_matrix_x * transformation_matrix_z;
-        Eigen::Quaterniond eigen_quat(lidar.block<3, 3>(0, 0).cast<double>());
-        Eigen::Vector3d eigen_trans(lidar.block<3, 1>(0, 3).cast<double>());
-        tf::Quaternion tf_quat;
-        tf::Vector3 tf_trans;
-        tf::quaternionEigenToTF(eigen_quat, tf_quat);
-        tf::vectorEigenToTF(eigen_trans, tf_trans);
-        tf::StampedTransform tf_map2scan(tf::Transform(tf_quat, tf_trans), ros::Time::now(), "world", "ego_car");
+        // auto lidar = t_cam_velo * pose_cam;
+        Eigen::Affine3d affine_transform(lidar); // 转换为Affine3d类型
+        tf::Transform tf_transform;
+        tf::transformEigenToTF(affine_transform, tf_transform);
+        tf::StampedTransform tf_map2scan(tf_transform, ros::Time::now(), "world", "ego_car");
         ego_tf_broadcaster.sendTransform(tf_map2scan);
 
         // ##################### visual ########################

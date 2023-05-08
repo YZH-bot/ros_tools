@@ -17,27 +17,19 @@
 
 int main(int argc, char **argv)
 {
-    std::string velodyne_path = "/home/yzh/learning/SLAM/datas/kitti_dateset/sequences/00/velodyne";
-    std::string calibration_file = "/home/yzh/learning/SLAM/datas/kitti_dateset/sequences/00/calib.txt";
-    std::string time_file = "/home/yzh/learning/SLAM/datas/kitti_dateset/sequences/00/times.txt";
-    std::string pose_file = "/home/yzh/learning/SLAM/datas/kitti_dateset/sequences/00/poses.txt";
-    std::string label_file = "/home/yzh/learning/SLAM/datas/kitti_dateset/sequences/00/labels/";
+    // std::string velodyne_path = "/home/yzh/learning/SLAM/datas/kitti_dateset/sequences/00/velodyne";
+    // std::string calibration_file = "/home/yzh/learning/SLAM/datas/kitti_dateset/sequences/00/calib.txt";
+    // std::string time_file = "/home/yzh/learning/SLAM/datas/kitti_dateset/sequences/00/times.txt";
+    // std::string pose_file = "/home/yzh/learning/SLAM/datas/kitti_dateset/sequences/00/poses.txt";
+    // std::string label_file = "/home/yzh/learning/SLAM/datas/kitti_dateset/sequences/00/labels/";
+    std::string velodyne_path = "/media/robot-nuc12/T7/Study/SLAM/Dataset/data_odometry_velodyne/dataset/sequences/05/velodyne/";
+    std::string calibration_file = "/media/robot-nuc12/T7/Study/SLAM/Dataset/data_odometry_calib/dataset/sequences/05/calib.txt";
+    std::string time_file = "/media/robot-nuc12/T7/Study/SLAM/Dataset/data_odometry_calib/dataset/sequences/05/times.txt";
+    std::string pose_file = "/media/robot-nuc12/T7/Study/SLAM/Dataset/data_odometry_labels/dataset/sequences/05/poses.txt";
+    std::string label_file = "/media/robot-nuc12/T7/Study/SLAM/Dataset/data_odometry_labels/dataset/sequences/05/labels/";
 
     std::ifstream calibration_fin(calibration_file);
     std::string value;
-
-    // Eigen::Matrix4d rotation_z = Eigen::Matrix4d::Identity();
-    // rotation_z(0, 0) = 0;
-    // rotation_z(0, 1) = 1;
-    // rotation_z(1, 0) = -1;
-    // rotation_z(1, 1) = 0;
-    // rotation_z(2, 3) = 0;
-
-    // Eigen::Matrix4d rotation_x = Eigen::Matrix4d::Identity();
-    // rotation_x(1, 1) = 0;
-    // rotation_x(2, 1) = -1;
-    // rotation_x(1, 2) = 1;
-    // rotation_x(2, 2) = 0;
 
     // 创建 AngleAxis 对象表示绕 X 轴旋转 -90 弧度
     Eigen::AngleAxisd rotation_vector_x(M_PI / 2, Eigen::Vector3d::UnitX());
@@ -136,7 +128,7 @@ int main(int argc, char **argv)
     ros::NodeHandle nh;
     ros::Publisher scans_pub = nh.advertise<sensor_msgs::PointCloud2>("scans_pub", 1);
     tf::TransformBroadcaster tf_broadcaster;
-    ros::Rate rate(5);
+    ros::Rate rate(10);
     auto scans_size = scans_.size();
     int scan_idx = 0;
     while (ros::ok())

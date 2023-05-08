@@ -3,7 +3,7 @@
 #include <pcl_conversions/pcl_conversions.h>
 #include <pcl/io/pcd_io.h>
 #include <string>
-
+#include <pcl/filters/voxel_grid.h>
 using namespace std;
 string pcd_path_;
 #define RED "\033[31m"
@@ -26,6 +26,12 @@ int main(int argc, char **argv)
         return -1;
     }
     ROS_INFO_STREAM(DEBUG << pcd_path_);
+
+    pcl::VoxelGrid<pcl::PointXYZI> sor;
+    sor.setLeafSize(0.5, 0.5, 0.5);
+    sor.setInputCloud(cloud);
+    sor.filter(*cloud);
+
     // Convert the PointCloud to PointCloud2
     sensor_msgs::PointCloud2 cloud_msg;
     pcl::toROSMsg(*cloud, cloud_msg);

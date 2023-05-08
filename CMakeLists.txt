@@ -78,8 +78,8 @@ target_link_libraries(kitti2range_image
 )
 
 # keyboard listening
-add_executable(kblistening src/others/kblistening.cpp)
-target_link_libraries(kblistening -lncurses)
+# add_executable(kblistening src/others/kblistening.cpp)
+# target_link_libraries(kblistening -lncurses)
 
 # kitti with label
 add_executable(kitti_with_label src/kitti/kitti_with_label.cpp)

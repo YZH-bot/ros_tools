@@ -18,7 +18,7 @@
 #include <tf/transform_broadcaster.h>
 #include <Eigen/Dense>
 #include <tf_conversions/tf_eigen.h>
-#include <opencv/cv.h>
+#include <opencv2/imgproc.hpp>
 #include <opencv2/opencv.hpp>
 #include <opencv2/core/eigen.hpp>
 #include <cv_bridge/cv_bridge.h>

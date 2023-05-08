@@ -1,11 +1,11 @@
 <launch>
-    <node name="earasor_pcd_pub" pkg="ros_tools" type="pcd_pub" output="screen">
+    <!-- <node name="earasor_pcd_pub" pkg="ros_tools" type="pcd_pub" output="screen">
         <rosparam param="/earasor_pcd_pub/path_to_pcd">"/media/yzh/T7/bag_map/kitti/05_0_400.pcd"</rosparam>
         <remap from="pcd_pub" to="earasor_pcd" />
-    </node>
+    </node> -->
 
     <node name="original_pcd_pub" pkg="ros_tools" type="pcd_pub" output="screen">
-        <rosparam param="/original_pcd_pub/path_to_pcd">"/home/yzh/learning/SLAM/tools/kitti2map/map.pcd"</rosparam>
+        <rosparam param="/original_pcd_pub/path_to_pcd">"/media/robot-nuc12/T7/bag_map/hash_map/original.pcd"</rosparam>
         <remap from="pcd_pub" to="original_pcd" />
     </node>
     
