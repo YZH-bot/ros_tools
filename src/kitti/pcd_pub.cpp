@@ -29,6 +29,7 @@ int main(int argc, char **argv)
 
     pcl::VoxelGrid<pcl::PointXYZI> sor;
     sor.setLeafSize(0.5, 0.5, 0.5);
+    sor.setDownsampleAllData(false);
     sor.setInputCloud(cloud);
     sor.filter(*cloud);
 
