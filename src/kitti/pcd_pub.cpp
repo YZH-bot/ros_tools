@@ -27,11 +27,11 @@ int main(int argc, char **argv)
     }
     ROS_INFO_STREAM(DEBUG << pcd_path_);
 
-    pcl::VoxelGrid<pcl::PointXYZI> sor;
-    sor.setLeafSize(0.5, 0.5, 0.5);
-    sor.setDownsampleAllData(false);
-    sor.setInputCloud(cloud);
-    sor.filter(*cloud);
+    // pcl::VoxelGrid<pcl::PointXYZI> sor;
+    // sor.setLeafSize(0.2, 0.2, 0.2);
+    // sor.setDownsampleAllData(false);
+    // sor.setInputCloud(cloud);
+    // sor.filter(*cloud);
 
     // Convert the PointCloud to PointCloud2
     sensor_msgs::PointCloud2 cloud_msg;

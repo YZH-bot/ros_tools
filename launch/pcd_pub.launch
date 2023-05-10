@@ -5,7 +5,7 @@
     </node> -->
 
     <node name="original_pcd_pub" pkg="ros_tools" type="pcd_pub" output="screen">
-        <rosparam param="/original_pcd_pub/path_to_pcd">"/media/yzh/YZH2/dynamic_mapping/pcd_data/globalmap_with_dynamic.pcd"</rosparam>
+        <rosparam param="/original_pcd_pub/path_to_pcd">"/media/robot-nuc12/T7/bag_map/hash_map/globalmap_with_dynamic.pcd"</rosparam>
         <remap from="pcd_pub" to="original_pcd" />
     </node>
     
