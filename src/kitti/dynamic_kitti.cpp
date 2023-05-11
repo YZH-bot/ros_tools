@@ -255,32 +255,32 @@ int main(int argc, char **argv)
     unordered_map<int, string> labels;
     unordered_map<int, vector<int>> color_map;
 
-    labels[0] = "unlabeled";
-    labels[1] = "outlier";
-    labels[10] = "car";
-    labels[11] = "bicycle";
-    labels[13] = "bus";
-    labels[15] = "motorcycle";
-    labels[16] = "on-rails";
-    labels[18] = "truck";
-    labels[20] = "other-vehicle";
-    labels[30] = "person";
-    labels[31] = "bicyclist";
-    labels[32] = "motorcyclist";
-    labels[40] = "road";
-    labels[44] = "parking";
-    labels[48] = "sidewalk";
-    labels[49] = "other-ground";
-    labels[50] = "building";
-    labels[51] = "fence";
-    labels[52] = "other-structure";
-    labels[60] = "lane-marking";
-    labels[70] = "vegetation";
-    labels[71] = "trunk";
-    labels[72] = "terrain";
-    labels[80] = "pole";
-    labels[81] = "traffic-sign";
-    labels[99] = "other-object";
+    labels[0]   = "unlabeled";
+    labels[1]   = "outlier";
+    labels[10]  = "car";
+    labels[11]  = "bicycle";
+    labels[13]  = "bus";
+    labels[15]  = "motorcycle";
+    labels[16]  = "on-rails";
+    labels[18]  = "truck";
+    labels[20]  = "other-vehicle";
+    labels[30]  = "person";
+    labels[31]  = "bicyclist";
+    labels[32]  = "motorcyclist";
+    labels[40]  = "road";
+    labels[44]  = "parking";
+    labels[48]  = "sidewalk";
+    labels[49]  = "other-ground";
+    labels[50]  = "building";
+    labels[51]  = "fence";
+    labels[52]  = "other-structure";
+    labels[60]  = "lane-marking";
+    labels[70]  = "vegetation";
+    labels[71]  = "trunk";
+    labels[72]  = "terrain";
+    labels[80]  = "pole";
+    labels[81]  = "traffic-sign";
+    labels[99]  = "other-object";
     labels[252] = "moving-car";
     labels[253] = "moving-bicyclist";
     labels[254] = "moving-person";
@@ -299,9 +299,9 @@ int main(int argc, char **argv)
     tf::TransformBroadcaster ego_tf_broadcaster;
 
     // ##################### data path ########################
-    string datapath = "/media/yzh/YZH2/KITTI Semantic/data_odometry_velodyne/dataset/sequences/05/velodyne/";
-    string lablespath = "/media/yzh/YZH2/KITTI Semantic/data_odometry_labels/dataset/sequences/05/labels/";
-    string pose_file = "/media/yzh/YZH2/KITTI Semantic/data_odometry_labels/dataset/sequences/05/poses.txt";
+    string datapath         = "/media/yzh/YZH2/KITTI Semantic/data_odometry_velodyne/dataset/sequences/05/velodyne/";
+    string lablespath       = "/media/yzh/YZH2/KITTI Semantic/data_odometry_labels/dataset/sequences/05/labels/";
+    string pose_file        = "/media/yzh/YZH2/KITTI Semantic/data_odometry_labels/dataset/sequences/05/poses.txt";
     string calibration_file = "/media/yzh/YZH2/KITTI Semantic/data_odometry_calib/dataset/sequences/05/calib.txt";
 
     // string datapath = "/media/robot-nuc12/T7/Study/SLAM/Dataset/data_odometry_velodyne/dataset/sequences/05/velodyne/";
@@ -355,7 +355,7 @@ int main(int argc, char **argv)
          { return a < b; });
 
     int frame = 0;
-    ros::Rate r(10);
+    ros::Rate r(5);
 
     while (ros::ok() && frame < maxframe)
     {
