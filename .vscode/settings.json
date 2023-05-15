@@ -81,6 +81,7 @@
         "variant": "cpp",
         "bit": "cpp",
         "future": "cpp",
-        "valarray": "cpp"
+        "valarray": "cpp",
+        "geometry": "cpp"
     }
 }
