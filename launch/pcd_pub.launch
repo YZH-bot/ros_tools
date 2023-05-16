@@ -1,18 +1,18 @@
 <launch>
-    <!-- <node name="earasor_pcd_pub" pkg="ros_tools" type="pcd_pub" output="screen">
-        <rosparam param="/earasor_pcd_pub/path_to_pcd">"/media/yzh/T7/bag_map/kitti/05_0_400.pcd"</rosparam>
+    <node name="earasor_pcd_pub" pkg="ros_tools" type="pcd_pub" output="screen">
+        <rosparam param="/earasor_pcd_pub/path_to_pcd">"/media/robot-nuc12/T7/bag_map/erasor/map_save/05_2350_to_2670_w_interval2_voxel_0.200000_original.pcd"</rosparam>
         <remap from="pcd_pub" to="earasor_pcd" />
-    </node> -->
+    </node>
 
     <node name="original_pcd_pub" pkg="ros_tools" type="pcd_pub" output="screen">
-        <rosparam param="/original_pcd_pub/path_to_pcd">"/media/robot-nuc12/T7/bag_map/hash_map/globalmap_with_dynamic.pcd"</rosparam>
+        <rosparam param="/original_pcd_pub/path_to_pcd">"/media/robot-nuc12/T7/bag_map/hash_map/exp/globalmap_with_dynamic.pcd"</rosparam>
         <remap from="pcd_pub" to="original_pcd" />
     </node>
     
-    <!-- <node name="hash_map_pcd_pub" pkg="ros_tools" type="pcd_pub" output="screen">
-        <rosparam param="/hash_map_pcd_pub/path_to_pcd">"/media/yzh/T7/bag_map/erasor/map_save/hash_map.pcd"</rosparam>
+    <node name="hash_map_pcd_pub" pkg="ros_tools" type="pcd_pub" output="screen">
+        <rosparam param="/hash_map_pcd_pub/path_to_pcd">"/media/robot-nuc12/T7/bag_map/hash_map/exp/run_kitti.pcd"</rosparam>
         <remap from="pcd_pub" to="hash_map_pcd" />
-    </node> -->
+    </node>
 
     <node name="rviz" pkg="rviz" type="rviz" args="-d $(find ros_tools)/rviz/pcd_pub.rviz"/>
 </launch>
