@@ -118,7 +118,7 @@ int main(int argc, char **argv)
 
         *map += *point_cloud;
         pcl::VoxelGrid<pcl::PointXYZI> sor;
-        sor.setLeafSize(.5, .5, .5);
+        sor.setLeafSize(.4, .4, .4);
         pcl::PointCloud<pcl::PointXYZI> filtered;
         sor.setInputCloud(map);
         sor.filter(*map);

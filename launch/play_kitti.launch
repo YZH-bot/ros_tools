@@ -1,7 +1,16 @@
 <launch>
     <node name="play_kitti" pkg="ros_tools" type="play_kitti" output="screen">
-        <rosparam param="/sequence_scan_dir_">"/home/yzh/learning/SLAM/datas/kitti_dateset/sequences/00/velodyne"</rosparam>
-        <rosparam param="/sequence_pose_path_">"/home/yzh/learning/SLAM/datas/kitti_dateset/sequences/00/poses/00.txt"</rosparam>
+        <rosparam param="world_frame">"world"</rosparam>
+        <rosparam param="base_frame">"ego_car"</rosparam>
+        <rosparam param="lidar_topic">"/kitti_velo"</rosparam>
+        <rosparam param="start_idx_">0</rosparam>
+        <rosparam param="end_idx_">2760</rosparam>
+        <rosparam param="lidar_datapath">"/media/robot-nuc12/T7/Study/SLAM/Dataset/data_odometry_velodyne/dataset/sequences/01/velodyne/"</rosparam>
+        <rosparam param="lables_path">"/home/robot-nuc12/catkin_ws/src/dynamic_remove_mapping/lidar-mos/salsanext_residual_8_sem_allseqs/sequences/01/predictions/"</rosparam>
+        <rosparam param="pose_file">"/media/robot-nuc12/T7/Study/SLAM/Dataset/data_odometry_labels/dataset/sequences/01/poses.txt"</rosparam>
+        <rosparam param="calibration_file">"/media/robot-nuc12/T7/Study/SLAM/Dataset/data_odometry_calib/dataset/sequences/01/calib.txt"</rosparam>
+        <rosparam param="time_file">"/media/robot-nuc12/T7/Study/SLAM/Dataset/data_odometry_calib/dataset/sequences/01/times.txt"</rosparam>
+        <rosparam param="save_pcd_directory_">"/media/robot-nuc12/T7/bag_map/kitti/01.pcd"</rosparam>
     </node>
     <node name="rviz" pkg="rviz" type="rviz" args="-d $(find ros_tools)/rviz/pcd_pub.rviz"/>
 </launch>

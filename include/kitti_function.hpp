@@ -25,7 +25,7 @@
 #include <sensor_msgs/image_encodings.h>
 #include <opencv2/highgui/highgui.hpp>
 #include <image_transport/image_transport.h>
-
+#include <pcl/kdtree/kdtree_flann.h>
 
 using namespace std;
 using     PointType = pcl::PointXYZI;
@@ -36,7 +36,7 @@ namespace fs        = std::filesystem;
 #define GREEN "\033[32m"
 #define DEBUG "\033[33m"
 
-std::vector<int> DYNAMIC_CLASSES = {252, 253, 254, 255, 256, 257, 258, 259};
+std::vector<int> DYNAMIC_CLASSES = {251, 252, 253, 254, 255, 256, 257, 258, 259};
 
 void load_cam_to_vel(string calibration_file, Eigen::Matrix<double, 4, 4> &t_cam_velo)
 {
@@ -691,3 +691,42 @@ void pubRangeImg(cv::Mat& _rimg,
     _msg = cvmat2msg(scan_rimg_viz);
     _publiser.publish(_msg);    
 } // pubRangeImg
+
+  void voxelize_preserving_labels(pcl::PointCloud<pcl::PointXYZI>::Ptr src, pcl::PointCloud<pcl::PointXYZI> &dst, double leaf_size)
+  {
+    /**< IMPORTANT
+     * Because PCL voxlizaiton just does average the intensity of point cloud,
+     * so this function is to conduct voxelization followed by nearest points search to re-assign the label of each point */
+    pcl::PointCloud<pcl::PointXYZI>::Ptr ptr_voxelized(new pcl::PointCloud<pcl::PointXYZI>);
+    pcl::PointCloud<pcl::PointXYZI>::Ptr ptr_reassigned(new pcl::PointCloud<pcl::PointXYZI>);
+
+    // 1. Voxelization
+    static pcl::VoxelGrid<pcl::PointXYZI> voxel_filter;
+    voxel_filter.setInputCloud(src);
+    voxel_filter.setLeafSize(leaf_size, leaf_size, leaf_size);
+    voxel_filter.filter(*ptr_voxelized);
+
+    // 2. Find nearest point to update intensity (index and id)
+    pcl::KdTreeFLANN<pcl::PointXYZI> kdtree;
+    kdtree.setInputCloud(src);
+
+    ptr_reassigned->points.reserve(ptr_voxelized->points.size());
+
+    int K = 1;
+
+    std::vector<int> pointIdxNKNSearch(K);
+    std::vector<float> pointNKNSquaredDistance(K);
+
+    // Set dst <- output
+    for (const auto &pt : ptr_voxelized->points)
+    {
+      if (kdtree.nearestKSearch(pt, K, pointIdxNKNSearch, pointNKNSquaredDistance) > 0)
+      {
+        auto updated = pt;
+        // Update meaned intensity to original intensity
+        updated.intensity = (*src)[pointIdxNKNSearch[0]].intensity;
+        ptr_reassigned->points.emplace_back(updated);
+      }
+    }
+    dst = *ptr_reassigned;
+  }

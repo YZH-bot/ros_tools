@@ -26,6 +26,7 @@ int main(int argc, char **argv)
         return -1;
     }
     ROS_INFO_STREAM(DEBUG << pcd_path_);
+    ROS_INFO_STREAM(DEBUG << "size: " << cloud->size());
 
     // pcl::VoxelGrid<pcl::PointXYZI> sor;
     // sor.setLeafSize(0.2, 0.2, 0.2);

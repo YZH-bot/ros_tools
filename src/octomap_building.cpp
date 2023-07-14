@@ -8,6 +8,8 @@
 #include <pcl/common/transforms.h>
 #include "kitti_function.hpp"
 #include <pcl/filters/passthrough.h>
+#include "octomap_building.hpp"
+#include <octomap/octomap.h>
 
 using namespace std;
 using PointType = pcl::PointXYZI;
@@ -15,7 +17,7 @@ using PointType = pcl::PointXYZI;
 int main(int argc, char *argv[])
 {
     int start_idx_ = 2350;
-    int end_idx_ = 2760;
+    int end_idx_ = 2460;
     std::vector<pcl::PointCloud<pcl::PointXYZI>::Ptr> scans_;
     std::vector<Eigen::Matrix4d> scan_poses_;
     std::string velodyne_path = "/media/robot-nuc12/T7/Study/SLAM/Dataset/data_odometry_velodyne/dataset/sequences/05/velodyne/";
@@ -36,11 +38,14 @@ int main(int argc, char *argv[])
     ros::NodeHandle nh;
     ros::Publisher scans_pub = nh.advertise<sensor_msgs::PointCloud2>("/kitti_velo", 1);
     ros::Publisher map_pub = nh.advertise<sensor_msgs::PointCloud2>("/map2", 1);
+    ros::Publisher octomap_pub = nh.advertise<sensor_msgs::PointCloud2>("/octomap", 1);
     ros::Rate rate(10);
     int scan_idx = 0;
 
     //* hash map
     tf::TransformBroadcaster ego_tf_broadcaster;
+    OctomapServer server;
+    octomap::OcTree tree(0.1);
 
     bool paused = false;
     pcl::PointCloud<pcl::PointXYZI>::Ptr map(new pcl::PointCloud<pcl::PointXYZI>());
@@ -51,77 +56,9 @@ int main(int argc, char *argv[])
         pcl::PointCloud<PointType>::Ptr scan_global_coord(new pcl::PointCloud<PointType>());
         auto ii_scan = scans_.at(scan_idx);      // pcl::PointCloud<PointType>::Ptr
         auto ii_pose = scan_poses_.at(scan_idx); // Eigen::Matrix4d
-                                                 // DONE: remove in range of 0.5m
-                                                 //* remove in range of 0.5m
-        for (size_t i = 0; i < ii_scan->points.size(); i++)
-        {
-            auto point = ii_scan->points.at(i);
-            point.z = point.z;
-            if (point.z < -3)
-                continue;
-            if (std::hypot(point.x, point.y, point.z) < 2)
-            {
-                continue;
-            }
-            // if (std::atan2(point.y, point.x) * 180 / M_PI > 15 || std::atan2(point.y, point.x) * 180 / M_PI < -15)
-            //     continue;
-            scan_global_coord->points.emplace_back(point);
-        }
-        cout << "scan_global_coord size: " << scan_global_coord->size() << endl;
-        // done: ring
-        std::array<float, 360> roi_distances_max; // to filter out not roi points
-        roi_distances_max.fill(100);
-        float fov_down = -24.9 / 180.0 * M_PI;
-        float fov = 26.9 / 180.0 * M_PI;
-        for (auto &pt : scan_global_coord->points)
-        {
-            int index_360 = std::floor(std::atan2(pt.y, pt.x) * 180 / M_PI + 180);
-            float distance = std::hypot(pt.x, pt.y);
-            float vertical_angle = std::atan2(pt.z, distance);
-            int ring = (vertical_angle + abs(fov_down)) / fov * 64;
-            if (ring > 60)
-            {
-                pt.intensity = 63; // Debug: pink max ring
-                float distance_roi = std::hypot(pt.x, pt.y);
-                roi_distances_max[index_360] = std::min(roi_distances_max[index_360], distance_roi);
-                if (roi_distances_max[index_360] < 2)
-                {
-                    cout << " xyz=" << pt.x << " " << pt.y << " " << pt.z;
-                }
-            }
-            else
-                pt.intensity = 0; // Debug: red ground
-        }
-        for (auto &pt : scan_global_coord->points)
-        {
-            if (pt.intensity == 0)
-            {
-                int index_360 = std::floor(std::atan2(pt.y, pt.x) * 180 / M_PI + 180);
-                float ego_2d_dis = std::hypot(pt.x, pt.y); // 当前点的2d dis
-                // done: 去除中间的not ROI
-                // TODO: not roi filter out: 11 感觉有点大，因为有部分点很奇怪，没滤掉
-                if (roi_distances_max[index_360] > 5 && ego_2d_dis > roi_distances_max[index_360])
-                {
-                    pt.intensity = 10; // Debug: yellow中间的not ROI
-                    // cout << roi_distances_max[index_360] << " ";
-                }
-                // DONE: 取出平地上方存在遮掩的问题，去除max ring附近区域，不作为ROI -5~5度之间
-                else
-                {
-                    for (int i = -3; i <= 3; i++)
-                    {
-                        if (roi_distances_max[index_360 + i] > 11 && std::abs(ego_2d_dis - roi_distances_max[index_360 + i]) < 1)
-                        {
-                            pt.intensity = 30; // debug: green block ground
-                            // cout << " tree region :" << roi_distances_max[index_360 + i];
-                        }
-                    }
-                }
-            }
-        }
 
         sensor_msgs::PointCloud2 lidar_msg;
-        pcl::toROSMsg(*scan_global_coord, lidar_msg);
+        pcl::toROSMsg(*ii_scan, lidar_msg);
         lidar_msg.header.stamp = ros::Time::now();
         lidar_msg.header.frame_id = "ego_car";
         scans_pub.publish(lidar_msg);
@@ -138,7 +75,7 @@ int main(int argc, char *argv[])
         ego_tf_broadcaster.sendTransform(tf_map2scan);
         scan_idx++;
 
-        pcl::transformPointCloud(*scan_global_coord, *scan_global_coord, ii_pose);
+        pcl::transformPointCloud(*ii_scan, *scan_global_coord, ii_pose);
         pcl::VoxelGrid<pcl::PointXYZI> sor1;
         sor1.setLeafSize(0.2, 0.2, 0.2);
         sor1.setInputCloud(scan_global_coord);
@@ -165,7 +102,32 @@ int main(int argc, char *argv[])
         msg_ground.header.frame_id = "world";
         map_pub.publish(msg_ground);
         ROS_INFO_STREAM(GREEN << "- sended map pcd: " << map->size());
+
+        // PCLPointCloud pc_ground;    // segmented ground plane
+        // PCLPointCloud pc_nonground; // everything else
+        // pcl::copyPointCloud(*scan_global_coord, pc_ground);
+        // tf::Vector3 p = tf_map2scan.getOrigin();
+        // server.insertScan(p, pc_ground, pc_nonground);
+        // server.toPointcloud();
+
+        // sensor_msgs::PointCloud2 msg_octomap;
+        // pcl::toROSMsg(server.pclCloud, msg_octomap);
+        // msg_octomap.is_dense = true;
+        // msg_octomap.header.frame_id = "world";
+        // octomap_pub.publish(msg_octomap);
+        // ROS_INFO_STREAM(GREEN << "- sended msg_octomap pcd: " << server.pclCloud.size());
+        octomap::Pointcloud cloud_octo;
+        for (auto pt : scan_global_coord->points)
+        {
+            // tree.updateNode(octomap::point3d(pt.x, pt.y, pt.z), true);
+            cloud_octo.push_back(pt.x, pt.y, pt.z);
+        }
+        tree.insertPointCloud(cloud_octo, octomap::point3d(ii_pose(0,3), ii_pose(1,3), ii_pose(2,3)));
+        tree.updateInnerOccupancy();
     }
+    string output_file = "/media/robot-nuc12/T7/bag_map/comparison/octomap2.bt";
+    tree.writeBinary(output_file);
+    cout << "done." << endl;
 
     return 0;
 }

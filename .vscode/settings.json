@@ -82,6 +82,9 @@
         "bit": "cpp",
         "future": "cpp",
         "valarray": "cpp",
-        "geometry": "cpp"
-    }
+        "geometry": "cpp",
+        "any": "cpp",
+        "regex": "cpp"
+    },
+    "ros.distro": "noetic"
 }

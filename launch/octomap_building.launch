@@ -1,0 +1,4 @@
+<launch>
+    <node name="octomap_building" pkg="ros_tools" type="octomap_building" output="screen">
+    </node>
+</launch>

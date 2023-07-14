@@ -2,6 +2,7 @@ cmake_minimum_required(VERSION 3.0.2)
 project(ros_tools)
 
 add_compile_options(-std=c++17 -O3)
+# add_compile_options(-std=c++17 -Wall -g)
 
 find_package(catkin REQUIRED COMPONENTS
   pcl_ros
@@ -18,6 +19,7 @@ find_package(catkin REQUIRED COMPONENTS
 find_package(PCL 1.7 REQUIRED)
 find_package(OpenMP REQUIRED)
 find_package(OpenCV REQUIRED QUIET)
+find_package(octomap REQUIRED)
 
 catkin_package(
 )
@@ -27,6 +29,7 @@ include_directories(
   ${catkin_INCLUDE_DIRS}
   ${PCL_INCLUDE_DIRS}
   ${OpenCV_INCLUDE_DIRS}
+  ${OCTOMAP_INCLUDE_DIRS}
 )
 
 link_directories(
@@ -91,6 +94,29 @@ target_link_libraries(
 add_executable(dynamic_kitti src/kitti/dynamic_kitti.cpp)
 target_link_libraries(
     dynamic_kitti
+    ${catkin_LIBRARIES}
+    ${PCL_LIBRARIES}
+)
+
+
+# add_executable(octomap_building src/octomap_building.cpp)
+# target_link_libraries(octomap_building
+#     ${catkin_LIBRARIES}
+#     ${PCL_LIBRARIES}
+#     ${OCTOMAP_LIBRARIES}
+#     stdc++fs
+# )
+
+# add_executable(subs_rslidar src/others/subs_rslidar.cpp)
+# target_link_libraries(
+#     subs_rslidar 
+#     ${catkin_LIBRARIES}
+#     ${PCL_LIBRARIES}
+# )
+
+add_executable(build_pcd src/others/build_pcd.cpp)
+target_link_libraries(
+    build_pcd 
     ${catkin_LIBRARIES}
     ${PCL_LIBRARIES}
 )

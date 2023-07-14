@@ -1,18 +1,73 @@
 <launch>
-    <node name="earasor_pcd_pub" pkg="ros_tools" type="pcd_pub" output="screen">
-        <rosparam param="/earasor_pcd_pub/path_to_pcd">"/media/robot-nuc12/T7/bag_map/erasor/map_save/05_2350_to_2670_w_interval2_voxel_0.200000_original.pcd"</rosparam>
-        <remap from="pcd_pub" to="earasor_pcd" />
+    <!-- Original -->
+    <node name="original_pcd_pub" pkg="ros_tools" type="pcd_pub" output="screen">
+        <rosparam param="/original_pcd_pub/path_to_pcd">"/media/robot-nuc12/T7/bag_map/hash_map/exp/05/ROI_Extraction.pcd"</rosparam>
+        <remap from="pcd_pub" to="original_pcd_pub" />
     </node>
 
-    <node name="original_pcd_pub" pkg="ros_tools" type="pcd_pub" output="screen">
-        <rosparam param="/original_pcd_pub/path_to_pcd">"/media/robot-nuc12/T7/bag_map/hash_map/exp/globalmap_with_dynamic.pcd"</rosparam>
+    <!-- Ours: Front-end only -->
+    <!-- <node name="no_back_end_pcd_pub" pkg="ros_tools" type="pcd_pub" output="screen">
+        <rosparam param="/no_back_end_pcd_pub/path_to_pcd">"/media/robot-nuc12/T7/bag_map/hash_map/exp/05/offline_demo_no_back_end.pcd"</rosparam>
+        <remap from="pcd_pub" to="no_back_end_pcd_pub" />
+    </node> -->
+
+    <!-- Ours: Front-end + Back-end -->
+    <!-- <node name="with_back_end_pcd_pub" pkg="ros_tools" type="pcd_pub" output="screen">
+        <rosparam param="/with_back_end_pcd_pub/path_to_pcd">"/media/robot-nuc12/T7/bag_map/hash_map/exp/05/offline_demo_with_back_end.pcd"</rosparam>
+        <remap from="pcd_pub" to="with_back_end_pcd_pub" />
+    </node> -->
+
+    <!-- Ours: Offline -->
+    <!-- <node name="Offline_pcd_pub" pkg="ros_tools" type="pcd_pub" output="screen">
+        <rosparam param="/Offline_pcd_pub/path_to_pcd">"/media/robot-nuc12/T7/bag_map/hash_map/exp/07/erasor.pcd"</rosparam>
+        <remap from="pcd_pub" to="Offline_pcd_pub" />
+    </node> -->
+
+    <!-- Ours: Own data -->
+    <!-- <node name="Own_data_pcd_pub" pkg="ros_tools" type="pcd_pub" output="screen">
+        <rosparam param="/Own_data_pcd_pub/path_to_pcd">"/media/robot-nuc12/T7/bag_map/hash_map/exp/own/240-290s_new.pcd"</rosparam>
+        <remap from="pcd_pub" to="Own_data_pcd_pub" />
+    </node> -->
+    
+    <!-- <node name="Own_data_original_pcd_pub" pkg="ros_tools" type="pcd_pub" output="screen">
+        <rosparam param="/Own_data_original_pcd_pub/path_to_pcd">"/media/robot-nuc12/T7/bag_map/hash_map/exp/own/460-510s_new_original.pcd"</rosparam>
+        <remap from="pcd_pub" to="Own_data_original_pcd_pub" />
+    </node> -->
+
+    <!-- <node name="earasor_pcd_pub1" pkg="ros_tools" type="pcd_pub" output="screen">
+        <rosparam param="/earasor_pcd_pub1/path_to_pcd">"/media/robot-nuc12/T7/bag_map/erasor/map_save/05_2350_to_2670_w_interval2_voxel_0.200000.pcd"</rosparam>
+        <remap from="pcd_pub" to="earasor_pcd1" />
+    </node> -->
+
+    <!-- <node name="removert_pcd_pub1" pkg="ros_tools" type="pcd_pub" output="screen">
+        <rosparam param="/removert_pcd_pub1/path_to_pcd">"/media/robot-nuc12/T7/bag_map/hash_map/exp/05/removert_gap5/map_static/StaticMapMapsideGlobalResX1.500000.pcd"</rosparam>
+        <remap from="pcd_pub" to="removert_pcd1" />
+    </node> -->
+
+    <!-- <node name="earasor_pcd_pub2" pkg="ros_tools" type="pcd_pub" output="screen">
+        <rosparam param="/earasor_pcd_pub2/path_to_pcd">"/media/robot-nuc12/T7/bag_map/erasor/map_save/05_result.pcd"</rosparam>
+        <remap from="pcd_pub" to="earasor_pcd2" />
+    </node> -->
+
+    <!-- <node name="original_pcd_pub" pkg="ros_tools" type="pcd_pub" output="screen">
+        <rosparam param="/original_pcd_pub/path_to_pcd">"/media/robot-nuc12/T7/bag_map/hash_map/debug/globalmap_with_dynamic_01_0100_0250.pcd"</rosparam>
         <remap from="pcd_pub" to="original_pcd" />
     </node>
     
     <node name="hash_map_pcd_pub" pkg="ros_tools" type="pcd_pub" output="screen">
-        <rosparam param="/hash_map_pcd_pub/path_to_pcd">"/media/robot-nuc12/T7/bag_map/hash_map/exp/run_kitti.pcd"</rosparam>
+        <rosparam param="/hash_map_pcd_pub/path_to_pcd">"/media/robot-nuc12/T7/bag_map/hash_map/debug/offline_demo_05_2350_2760_ROI_modyfied.pcd"</rosparam>
         <remap from="pcd_pub" to="hash_map_pcd" />
-    </node>
+    </node> -->
+
+    <!-- <node name="octomap_pcd_pub" pkg="ros_tools" type="pcd_pub" output="screen">
+        <rosparam param="/octomap_pcd_pub/path_to_pcd">"/media/robot-nuc12/T7/bag_map/hash_map/exp/05/octomap.pcd"</rosparam>
+        <remap from="pcd_pub" to="octomap_pcd" />
+    </node> -->
+
+    <!-- <node name="mos_pcd_pub2" pkg="ros_tools" type="pcd_pub" output="screen">
+        <rosparam param="/mos_pcd_pub2/path_to_pcd">"/media/robot-nuc12/T7/bag_map/comparison/removert_auto_mos/OriginalNoisyMapGlobal.pcd"</rosparam>
+        <remap from="pcd_pub" to="mos_pcd_pub2" />
+    </node> -->
 
     <node name="rviz" pkg="rviz" type="rviz" args="-d $(find ros_tools)/rviz/pcd_pub.rviz"/>
 </launch>
