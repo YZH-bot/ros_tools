@@ -1,11 +1,12 @@
-# *Myros_tools*
+# Myros_tools
+Some convenient tools used in ROS. Contents: 
 
-- For KITTI
+- **For KITTI**
   - Building globalmap with **dynamic objects** and publishing to rviz and saving.
   - Converting KITTI scans to **range images**.
   - Adding **ring** 0-63 information.
-- Others
-  - Removing dynamic objects using **octomap** offline
+- **Others**
+  - Removing dynamic objects using **octomap** offline.
 ## ⚙️ Requirements
 
 - Based on C++17
