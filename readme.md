@@ -2,10 +2,10 @@
 
 - For KITTI
   - Building globalmap with **dynamic objects** and publishing to rviz and saving.
-  - Converting KITTI scans to range images.
-  - Adding ring 0-63 information.
+  - Converting KITTI scans to **range images**.
+  - Adding **ring** 0-63 information.
 - Others
-  - Removing dynamic objects using octomap offline
+  - Removing dynamic objects using **octomap** offline
 ## ⚙️ Requirements
 
 - Based on C++17
