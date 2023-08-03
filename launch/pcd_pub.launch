@@ -1,15 +1,15 @@
 <launch>
     <!-- Original -->
     <node name="original_pcd_pub" pkg="ros_tools" type="pcd_pub" output="screen">
-        <rosparam param="/original_pcd_pub/path_to_pcd">"/media/robot-nuc12/T7/bag_map/hash_map/exp/05/ROI_Extraction.pcd"</rosparam>
+        <rosparam param="/original_pcd_pub/path_to_pcd">"/media/robot-nuc12/T7/bag_map/hash_map/exp/01/erasor.pcd"</rosparam>
         <remap from="pcd_pub" to="original_pcd_pub" />
     </node>
 
     <!-- Ours: Front-end only -->
-    <!-- <node name="no_back_end_pcd_pub" pkg="ros_tools" type="pcd_pub" output="screen">
-        <rosparam param="/no_back_end_pcd_pub/path_to_pcd">"/media/robot-nuc12/T7/bag_map/hash_map/exp/05/offline_demo_no_back_end.pcd"</rosparam>
+    <node name="no_back_end_pcd_pub" pkg="ros_tools" type="pcd_pub" output="screen">
+        <rosparam param="/no_back_end_pcd_pub/path_to_pcd">"/media/robot-nuc12/T7/bag_map/hash_map/exp/01/front_back_end.pcd"</rosparam>
         <remap from="pcd_pub" to="no_back_end_pcd_pub" />
-    </node> -->
+    </node>
 
     <!-- Ours: Front-end + Back-end -->
     <!-- <node name="with_back_end_pcd_pub" pkg="ros_tools" type="pcd_pub" output="screen">

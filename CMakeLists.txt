@@ -62,13 +62,6 @@ target_link_libraries(play_kitti
     stdc++fs
 )
 
-add_executable(play_kitti_bug src/kitti/play_kitti_bug.cpp)
-target_link_libraries(play_kitti_bug
-    ${catkin_LIBRARIES}
-    ${PCL_LIBRARIES}
-    stdc++fs
-)
-
 # kitti data to range images
 add_executable(kitti2range_image src/kitti/kitti2range_image.cpp)
 target_compile_options(kitti2range_image PRIVATE ${OpenMP_CXX_FLAGS})
@@ -99,13 +92,13 @@ target_link_libraries(
 )
 
 
-# add_executable(octomap_building src/octomap_building.cpp)
-# target_link_libraries(octomap_building
-#     ${catkin_LIBRARIES}
-#     ${PCL_LIBRARIES}
-#     ${OCTOMAP_LIBRARIES}
-#     stdc++fs
-# )
+add_executable(octomap_building src/others/octomap_building.cpp)
+target_link_libraries(octomap_building
+    ${catkin_LIBRARIES}
+    ${PCL_LIBRARIES}
+    ${OCTOMAP_LIBRARIES}
+    stdc++fs
+)
 
 # add_executable(subs_rslidar src/others/subs_rslidar.cpp)
 # target_link_libraries(

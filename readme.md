@@ -1,7 +1,11 @@
 # *Myros_tools*
 
-- Some tools used in ROS.
-
+- For KITTI
+  - Building globalmap with **dynamic objects** and publishing to rviz and saving.
+  - Converting KITTI scans to range images.
+  - Adding ring 0-63 information.
+- Others
+  - Removing dynamic objects using octomap offline
 ## ⚙️ Requirements
 
 - Based on C++17
@@ -9,32 +13,41 @@
 - [Kitti data](http://semantic-kitti.org/) setups
   - [百度网盘Kitti data](https://pan.baidu.com/s/1JYfp-gSqZp-7wcS7Tb4DUA) 提取码: jbbc 
 
-  | Original map       | Raycasting dynamic removal     |
+  |  Car   |  Settings  |
   | ------------------ | ------------------------------ |
   | <img src="imgs/passat_sensors_920.png" height="200"> | <img src="imgs/setup_top_view.png" height="200"> |
 
-## ⭐️ Node Example
 
-- [bin2global_map](myros_tools/src/bin2global_map.cpp): Generates a global map form kitti datas.
-  <center><img src="imgs/05c.png" width="500" ></center>
 
-- [pcd_pub](myros_tools/src/pcd_pub.cpp): Publish the global map pcd file to rviz.
-  <center><img src="imgs/00.png" width="500"></center>
+## ⭐️ Example
+- Building globalmap with **dynamic objects** and publishing to rviz and saving.
+```C++
+roslaunch ros_tools play_kitti.launch
+```
+<p align="center">
+  <img src="imgs/all.png" alt="animated" width="800" />
+</p>
 
-- Poor raycasting: Using raycasting methods to remove dynamic objects.(Not upload yet)
+
+- Naive raycasting: Using raycasting methods to remove dynamic objects.(Not upload yet)
   | Original map       | Raycasting dynamic removal     |
   | ------------------ | ------------------------------ |
   | <img src="imgs/05r.png" height="300"> | <img src="imgs/poor_raycasting.png" height="300"> |
-- [play_kitti](myros_tools/src/play_kitti.cpp): Publish the kitti bin data and TF to rviz in real-time in the style of query scan. ```roslaunch myros_tools play_kitti.launch ```
-  <center><img src="imgs/scan.png" width="500"></center>
-  
 
-
-- With ring 0-63:
-  <center><img src="imgs/ring.png" width="500"></center>
 
 - [kitti2range_image](myros_tools/src/kitti2range_image.cpp): Convert the kitti velodyne to range images. **貌似kitti数据集的lidar frame 180度左右存在一个严重的噪点数据，从图像中心可以看出来，有一个蓝色近距离点**
-  ![img](imgs/range_images.gif)
+```C++
+roslaunch ros_tools range_images.launch
+```
+<p align="center">
+  <img src="imgs/range_images.gif" alt="animated" width="800" />
+</p>
+
+- Adding ring 0-63 information:
+<p align="center">
+  <img src="imgs/ring.png" alt="animated" width="800" />
+</p>
+
 
 - [kblistening](src/others/kblistening.cpp)：Check whether the keyboard is pressed so that the publication of bin can pause like rosbag.
   - requirement:
@@ -44,7 +57,7 @@
     target_link_libraries(your_target_name -lncurses)
     ```
 
-## 💬 *Notes*
+## 💬 Tips
 
 - Subscribe to the topic, and save the pointcloud to pcd file.
 
