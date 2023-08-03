@@ -25,7 +25,7 @@
 roslaunch ros_tools play_kitti.launch
 ```
 <p align="center">
-  <img src="imgs/all.png" alt="animated" width="800" />
+  <img src="imgs/all.png" alt="animated" width="750" />
 </p>
 
 
@@ -40,12 +40,12 @@ roslaunch ros_tools play_kitti.launch
 roslaunch ros_tools range_images.launch
 ```
 <p align="center">
-  <img src="imgs/range_images.gif" alt="animated" width="800" />
+  <img src="imgs/range_images.gif" alt="animated" width="750" />
 </p>
 
 - Adding ring 0-63 information:
 <p align="center">
-  <img src="imgs/ring.png" alt="animated" width="800" />
+  <img src="imgs/ring.png" alt="animated" width="750" />
 </p>
 
 
@@ -76,7 +76,11 @@ out.gif 为输出文件名
 ```
 
 - 转换为range images需要的一些参数：
-<img src="imgs/velodyne_params.png" height="500">
+<p align="center">
+  <img src="imgs/velodyne_params.png" alt="animated" width="750" />
+</p>
+
+
 
 ## *Reference*
 
