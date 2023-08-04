@@ -14,8 +14,8 @@ Some convenient tools used in ROS. Contents:
 - [Kitti data](http://semantic-kitti.org/) setups
   - [百度网盘Kitti data](https://pan.baidu.com/s/1JYfp-gSqZp-7wcS7Tb4DUA) 提取码: jbbc 
 
-  |  Car   |  Settings  |
-  | ------------------ | ------------------------------ |
+  | Car   | Settings |
+  | :------------------: | :------------------------------: |
   | <img src="imgs/passat_sensors_920.png" height="200"> | <img src="imgs/setup_top_view.png" height="200"> |
 
 
@@ -28,6 +28,43 @@ roslaunch ros_tools play_kitti.launch
 <p align="center">
   <img src="imgs/all.png" alt="animated" width="750" />
 </p>
+
+<table>
+  <thead>
+    <tr>
+      <th colspan="6">Global Map with Dynamic Objects in Red</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr align="center">
+      <td> 00 </td><td> 01 </td><td> 02 </td><td> 03 </td><td> 05 </td><td> 04 </td>
+    </tr>
+  </tbody>
+  <tbody>
+    <tr>
+      <td> <p align="center"><img src="imgs/dynamic_global_map/00.png" alt="animated" height="120" /></p> </td>
+      <td> <p align="center"><img src="imgs/dynamic_global_map/01.png" alt="animated" height="120" /></p> </td>
+      <td> <p align="center"><img src="imgs/dynamic_global_map/02.png" alt="animated" height="120" /></p> </td>
+      <td> <p align="center"><img src="imgs/dynamic_global_map/03.png" alt="animated" height="120" /></p> </td>
+      <td> <p align="center"><img src="imgs/dynamic_global_map/04.png" alt="animated" height="120" /></p> </td>
+      <td> <p align="center"><img src="imgs/dynamic_global_map/05.png" alt="animated" height="120" /></p> </td>
+    </tr>
+  </tbody>
+  <tbody>
+    <tr align="center">
+      <td> 06 </td><td> 07 </td><td> 08 </td><td> 09 </td><td> 10 </td>
+    </tr>
+  </tbody>
+  <tbody>
+    <tr>
+      <td> <p align="center"><img src="imgs/dynamic_global_map/06.png" alt="animated" height="120" /></p> </td>
+      <td> <p align="center"><img src="imgs/dynamic_global_map/07.png" alt="animated" height="120" /></p> </td>
+      <td> <p align="center"><img src="imgs/dynamic_global_map/08.png" alt="animated" height="120" /></p> </td>
+      <td> <p align="center"><img src="imgs/dynamic_global_map/09.png" alt="animated" height="120" /></p> </td>
+      <td> <p align="center"><img src="imgs/dynamic_global_map/10.png" alt="animated" height="120" /></p> </td>
+    </tr>
+  </tbody>
+</table>
 
 
 - Naive raycasting: Using raycasting methods to remove dynamic objects.(Not upload yet)
