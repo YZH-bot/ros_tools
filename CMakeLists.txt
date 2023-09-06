@@ -14,6 +14,7 @@ find_package(catkin REQUIRED COMPONENTS
   tf_conversions
   image_transport
   cv_bridge
+  octomap_ros
 )
 
 find_package(PCL 1.7 REQUIRED)
